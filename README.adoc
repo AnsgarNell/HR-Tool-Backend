@@ -1,1 +1,62 @@
-# HR-Tool-Backend
+= Human Resources Management System
+Ansgar Nell <ansgar.nell@(Google's email).com>
+1.0, March 30, 2020, Asciidoctor 1.5 article template
+:toc:
+:icons: font
+
+This document describes the Human Resources (HR) Management System developed based on the
+https://dev.mysql.com/doc/employee/en/[Employees Sample Database] provided by https://www.mysql.com/[MySQL].
+footnote:[The development of the project is explained in the Medium Article]
+
+== Introduction
+
+The HR Management System development has been done as a request received by the Imaginary Company, which wants to
+update their current MS-DOS based solution to a Web environment.
+
+=== Functional Requirements
+
+Based on the specifications received from the client, we have the following functional requirements:
+
+[#privilege-levels]
+==== Privilege Levels
+
+The employees who have access to the database must belong to only and exclusively one of the following levels:
+
+[#privilege-levels-levels]
+.Privilege levels (in descending order)
+. HR Manager (Manager)
+. HR Senior Staff (Senior Staff)
+. HR Staff (Staff)
+
+Every level must have all the permissions from the lower levels.
+
+[#view-information]
+==== View Information
+
+All the information stored in the database is accessible, except for the next restrictions:
+
+* Managers' salaries: only allowed to Senior Staff or higher.
+
+As detailed in the indications about the navigation, the system sitemap must follow the next diagram:
+
+ifdef::env-github[image::/images/sitemap.png[Diagram classes]]
+ifndef::env-github[]
+[plantuml,images/sitemap,png]
+....
+artifact departments
+artifact employees
+artifact employee as "employee information"
+departments <-right-> employees
+employees <-right-> employee
+departments <-right-> employee : manager information
+....
+
+[#change-information]
+==== Change information
+
+The only information that can be changed in the database are the salaries, and only Senior Staff
+or higher levels are allowed to do it. Following restrictions apply:
+
+* Managers' salaries: only the Manager level must be able to change this information.
+
+=== Non-functional Requirements
