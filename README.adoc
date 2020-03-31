@@ -72,6 +72,7 @@ departments <-right-> employees
 employees <-right-> employee
 departments <-right-> employee : manager information
 ....
+endif::env-github[]
 
 [#change-information]
 === Change information
@@ -137,4 +138,5 @@ entity Department {
     * dept_name : VARCHAR(40)     .
 }
 ....
+endif::env-github[]
 

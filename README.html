@@ -450,10 +450,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_introduction">Introduction</a>
+<li><a href="#_introduction">Introduction</a></li>
+<li><a href="#_existing_database">Existing Database</a></li>
+<li><a href="#_existing_ms_dos_system">Existing MS-DOS System</a></li>
+<li><a href="#_requirements">Requirements</a>
 <ul class="sectlevel2">
 <li><a href="#_functional_requirements">Functional Requirements</a></li>
+<li><a href="#web-based-solution">Web Based Solution</a></li>
+<li><a href="#privilege-levels">Privilege Levels</a></li>
+<li><a href="#view-information">View Information</a></li>
+<li><a href="#change-information">Change information</a></li>
 <li><a href="#_non_functional_requirements">Non-functional Requirements</a></li>
+</ul>
+</li>
+<li><a href="#_used_technologies">Used Technologies</a></li>
+<li><a href="#_system_architecture">System Architecture</a>
+<ul class="sectlevel2">
+<li><a href="#_model">Model</a></li>
 </ul>
 </li>
 </ul>
@@ -476,13 +489,50 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The HR Management System development has been done as a request received by the Imaginary Company, which wants to
 update their current MS-DOS based solution to a Web environment.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_existing_database">Existing Database</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The solution must be done taken into account that the database already exists. The company wishes to continue
+working with it without doing a migration or losing any data, but it is possible to add new tables and information.
+The schema can be seen in the next image:</p>
+</div>
+<div id="database-schema" class="imageblock">
+<div class="content">
+<img src="images/employees-schema.png" alt="Employees Database Schema.">
+</div>
+<div class="title">Figure 1. Database Schema</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_existing_ms_dos_system">Existing MS-DOS System</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our client currently works with a MS-DOS based system. This program will be used as an orientation for the new
+project, having as the main goal to replicate the existing navigation options and operations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requirements">Requirements</h2>
+<div class="sectionbody">
 <div class="sect2">
 <h3 id="_functional_requirements">Functional Requirements</h3>
 <div class="paragraph">
 <p>Based on the specifications received from the client, we have the following functional requirements:</p>
 </div>
-<div class="sect3">
-<h4 id="privilege-levels">Privilege Levels</h4>
+</div>
+<div class="sect2">
+<h3 id="web-based-solution">Web Based Solution</h3>
+<div class="paragraph">
+<p>The application must be accessed using a web browser.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="privilege-levels">Privilege Levels</h3>
 <div class="paragraph">
 <p>The employees who have access to the database must belong to only and exclusively one of the following levels:</p>
 </div>
@@ -504,8 +554,8 @@ update their current MS-DOS based solution to a Web environment.</p>
 <p>Every level must have all the permissions from the lower levels.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="view-information">View Information</h4>
+<div class="sect2">
+<h3 id="view-information">View Information</h3>
 <div class="paragraph">
 <p>All the information stored in the database is accessible, except for the next restrictions:</p>
 </div>
@@ -525,8 +575,8 @@ update their current MS-DOS based solution to a Web environment.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="change-information">Change information</h4>
+<div class="sect2">
+<h3 id="change-information">Change information</h3>
 <div class="paragraph">
 <p>The only information that can be changed in the database are the salaries, and only Senior Staff
 or higher levels are allowed to do it. Following restrictions apply:</p>
@@ -539,10 +589,87 @@ or higher levels are allowed to do it. Following restrictions apply:</p>
 </ul>
 </div>
 </div>
-</div>
 <div class="sect2">
 <h3 id="_non_functional_requirements">Non-functional Requirements</h3>
 
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_used_technologies">Used Technologies</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Used Technologies</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Version</th>
+<th class="tableblock halign-left valign-top">Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://spring.io/projects/spring-boot">Spring Boot</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.2.6.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backend Implementation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.jetbrains.com/idea/">IntelliJ</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019.3.4 (Community Edition)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java IDE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.docker.com/">Docker</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19.03.8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Containerization</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://asciidoctor.org/">Asciidoctor</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Documentation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.mysql.com/">MySQL</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8.0.19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_system_architecture">System Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The system will be developed using the Model-View-Controller (MVC) software design pattern.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/mvc-diagram.jpg" alt="MVC Software Design Pattern.">
+</div>
+<div class="title">Figure 2. (taken from <a href="https://commons.wikimedia.org/wiki/File:MVC_Diagram_(Model-View-Controller).svg">Wikimedia Commons</a>)</div>
+</div>
+<div class="sect2">
+<h3 id="_model">Model</h3>
+<div class="paragraph">
+<p>The original database schema can be seen in <a href="#database-schema">Database Schema</a>. Let&#8217;s analyze each of the tables and it contents.</p>
+</div>
+<div class="sect3">
+<h4 id="_departments">Departments</h4>
+<div class="paragraph">
+<p>The departments entity diagram looks as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/departments-schema.png" alt="departments schema" width="215" height="90">
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -550,13 +677,13 @@ or higher levels are allowed to do it. Following restrictions apply:</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The development of the project is explained in the Medium Article
+<a href="#_footnoteref_1">1</a>. The development of the project is explained in the Medium Article (will be linked when finished)
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-03-30 23:00:37 +0200
+Last updated 2020-03-31 10:21:47 +0200
 </div>
 </div>
 </body>
