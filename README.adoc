@@ -135,7 +135,7 @@ ifndef::env-github[]
 entity Department {
     * dept_no : CHAR(4)
     --
-    * dept_name : VARCHAR(40)     .
+    * dept_name : VARCHAR(40)
 }
 ....
 endif::env-github[]
