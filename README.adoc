@@ -132,7 +132,7 @@ ifndef::env-github[]
 [plantuml,images/departments-schema,png]
 ....
 
-entity Department {
+entity departments {
     * dept_no : CHAR(4)
     --
     * dept_name : VARCHAR(40)
@@ -140,3 +140,12 @@ entity Department {
 ....
 endif::env-github[]
 
+=== Controller
+
+Each entity has it's own controller, mapped to the corresponding path. Depending on the entity, it is also possible
+to pass parameters to access to a specific information (for example, the detailed view of an employee passing his
+employee number).
+
+==== Departments Controller
+
+* Path: "/departments"
