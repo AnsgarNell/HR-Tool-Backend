@@ -31,3 +31,5 @@ build/
 .vscode/
 
 .asciidoctor
+### Sensitive Data ###
+src/main/resources/application.properties
