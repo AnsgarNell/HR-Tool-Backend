@@ -1,6 +1,6 @@
 = Human Resources Management System
 Ansgar Nell <ansgar.nell@(Google's email).com>
-1.0, March 30, 2020, Asciidoctor 1.5 article template
+1.0, March 30, 2020
 :toc:
 :icons: font
 
@@ -21,7 +21,7 @@ The schema can be seen in the next image:
 
 [#database-schema]
 .Database Schema
-image::images/employees-schema.png[Employees Database Schema.]
+image::images/employees-database-schema.png[Employees Database Schema.]
 
 == Existing MS-DOS System
 
@@ -61,7 +61,7 @@ All the information stored in the database is accessible, except for the next re
 
 As detailed in the indications about the navigation, the system sitemap must follow the next diagram:
 
-ifdef::env-github[image::/images/sitemap.png[Diagram classes]]
+ifdef::env-github[image::/images/sitemap.png[Sitemap]]
 ifndef::env-github[]
 [plantuml,images/sitemap,png]
 ....
@@ -109,9 +109,21 @@ or higher levels are allowed to do it. Following restrictions apply:
 |https://www.mysql.com/[MySQL]
 |8.0.19
 |Database
+
+|https://angular.io/[Angular]
+|9.1.0
+|Frontend Implementation
+
+|https://www.jetbrains.com/webstorm/[WebStorm]
+|2019.3.4
+|Angular IDE
+
+|https://semantic-ui.com/[Semantic UI]
+|2.2.13
+|CSS Styling
 |===
 
-== System Architecture
+== System Design
 
 The system will be developed using the Model-View-Controller (MVC) software design pattern.
 
@@ -123,16 +135,35 @@ image::images/mvc-diagram.jpg[MVC Software Design Pattern.]
 
 The original database schema can be seen in <<#database-schema>>. Let's analyze each of the tables and it contents.
 
+[#departments]
 ==== Departments
 
 The departments entity diagram looks as follows:
 
-ifdef::env-github[image::/images/departments-schema.png[Diagram classes]]
+ifdef::env-github[image::/images/departments-schema.png[Departments Schema]]
 ifndef::env-github[]
 [plantuml,images/departments-schema,png]
 ....
 
 entity departments {
+    * dept_no : CHAR(4)
+    --
+    * dept_name : VARCHAR(40)
+}
+....
+endif::env-github[]
+
+[#employees]
+==== Employees
+
+The employees table contains the following information:
+
+ifdef::env-github[image::/images/employees-schema.png[Employees Schema]]
+ifndef::env-github[]
+[plantuml,images/employees-schema,png]
+....
+
+entity employees {
     * dept_no : CHAR(4)
     --
     * dept_name : VARCHAR(40)
@@ -149,3 +180,18 @@ employee number).
 ==== Departments Controller
 
 * Path: "/departments"
++
+Returns the complete list of departments. Each department entry contains the same information as in the entity
+<<#departments>>.
+
+* Path: "/departments/{id}"
++
+Returns the following information corresponding to the department number _id_:
+
+** The data contained in <<#departments>>.
+** The complete list of employees
+
+=== View
+
+The View part of the application is implemented using the Angular framework. The documentation can be consulted
+https://github.com/AnsgarNell/HRToolFrontend[here].
