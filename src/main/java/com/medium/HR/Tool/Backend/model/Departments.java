@@ -11,20 +11,21 @@ public class Departments {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "char")
-    private String dept_no;
+    @Column(name = "dept_no", columnDefinition = "char")
+    private String deptNo;
 
     @Size(max = 40, message
             = "Department name can not contain more than 40 characters")
     @NotNull(message = "Department name may not be null")
     @NotEmpty(message = "Department name may not be empty")
-    private String dept_name;
+    @Column(name = "dept_name")
+    private String deptName;
 
-    public String getDept_no() {
-        return dept_no;
+    public String getDeptNo() {
+        return deptNo;
     }
 
-    public String getDept_name() {
-        return dept_name;
+    public String getDeptName() {
+        return deptName;
     }
 }
