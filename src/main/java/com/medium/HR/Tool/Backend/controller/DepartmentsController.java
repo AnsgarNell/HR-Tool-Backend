@@ -1,6 +1,6 @@
 package com.medium.HR.Tool.Backend.controller;
 
-import com.medium.HR.Tool.Backend.model.services.DepartmentsService;
+import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 public class DepartmentsController {
 
     @Autowired
-    DepartmentsService departmentsService;
+    DepartmentsRepository repository;
 
     /**
      * Lists all departments.
@@ -24,6 +24,6 @@ public class DepartmentsController {
      */
     @GetMapping
     public List<?> listDepartments() {
-        return departmentsService.list();
+        return repository.findAll();
     }
 }
