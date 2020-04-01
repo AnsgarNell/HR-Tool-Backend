@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/departments")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DepartmentsController {
 
     @Autowired
