@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
+@Table(name = "employees")
 public class Employee {
 
     @Id
