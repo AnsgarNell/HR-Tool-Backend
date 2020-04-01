@@ -136,51 +136,23 @@ image::images/mvc-diagram.jpg[MVC Software Design Pattern]
 
 === Model
 
-The original database schema can be seen in <<#database-schema>>. Let's analyze each of the tables and it contents.
+The original database schema can be seen in <<#database-schema>>.
 
-[#departments]
-==== Departments
+NOTE: For the development, the entities names are in *singular* form, in order to avoid confusion when using a single
+instance or several. So, the Employees tables is mapped to the Employee class, and so on. The plural form has been
+maintained for other components like repositories or controllers.
 
-The departments entity diagram looks as follows:
+Let's analyze each of the tables and it contents.
 
-ifdef::env-github[]
-.Departments Schema
-image::/images/departments-schema.png[Departments Schema]
-endif::env-github[]
-ifndef::env-github[]
-[plantuml,images/departments-schema,png]
-....
-entity departments {
-    * dept_no : CHAR(4)
-    --
-    * dept_name : VARCHAR(40)
-}
-....
-endif::env-github[]
+[#department]
+==== Department
 
-[#employees]
-==== Employees
+The *Department* entity maps the *departments* table.
 
-The employees table contains the following information:
+[#employee]
+==== Employee
 
-ifdef::env-github[]
-.Employees Schema
-image::/images/employees-schema.png[Employees Schema]
-endif::env-github[]
-ifndef::env-github[]
-[plantuml,images/employees-schema,png]
-....
-entity employees {
-    * emp_no : INT
-    --
-    * birth_date : DATE
-    * first_name : VARCHAR(14)
-    * last_name : VARCHAR(16)
-    * gender : ENUM('M','F')
-    * hire_date : DATE
-}
-....
-endif::env-github[]
+The *Employee* entity maps the *employees* table.
 
 === Controller
 
@@ -193,13 +165,14 @@ employee number).
 * Path: "/departments"
 +
 Returns the complete list of departments. Each department entry contains the same information as in the entity
-<<#departments>>.
+<<#department>>.
 
 * Path: "/departments/{id}"
 +
 Returns the following information corresponding to the department number _id_:
 
-** The data contained in <<#departments>>.
+** The data contained in <<#department>>
+** Information about the current manager
 ** The complete list of employees
 
 === View
