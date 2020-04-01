@@ -21,7 +21,7 @@ The schema can be seen in the next image:
 
 [#database-schema]
 .Database Schema
-image::images/employees-database-schema.png[Employees Database Schema.]
+image::images/employees-database-schema.png[Employees Database Schema]
 
 == Existing MS-DOS System
 
@@ -61,7 +61,10 @@ All the information stored in the database is accessible, except for the next re
 
 As detailed in the indications about the navigation, the system sitemap must follow the next diagram:
 
-ifdef::env-github[image::/images/sitemap.png[Sitemap]]
+ifdef::env-github[]
+.Sitemap
+image::/images/sitemap.png[Sitemap]
+endif::env-github[]
 ifndef::env-github[]
 [plantuml,images/sitemap,png]
 ....
@@ -129,7 +132,7 @@ The system will be developed using the Model-View-Controller (MVC) software desi
 
 .MVC pattern
 .(taken from https://commons.wikimedia.org/wiki/File:MVC_Diagram_(Model-View-Controller).svg[Wikimedia Commons])
-image::images/mvc-diagram.jpg[MVC Software Design Pattern.]
+image::images/mvc-diagram.jpg[MVC Software Design Pattern]
 
 === Model
 
