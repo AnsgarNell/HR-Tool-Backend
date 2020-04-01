@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -42,4 +43,7 @@ public class Employee {
     @NotNull(message = "Hire date may not be null")
     @Column(name = "hire_date")
     private Date hireDate;
+
+    @ManyToMany(mappedBy = "managers")
+    private Set<Department> manager;
 }

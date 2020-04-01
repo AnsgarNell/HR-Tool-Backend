@@ -5,6 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "departments")
@@ -24,10 +25,10 @@ public class Department {
 
     @ManyToMany
     @JoinTable(
-            name="dept_manager",
-            joinColumns=@JoinColumn(name="emp_no", referencedColumnName="emp_no"),
-            inverseJoinColumns=@JoinColumn(name="dept_no", referencedColumnName="dept_no"))
-    private List<Employee> managers;
+            name = "dept_manager",
+            joinColumns = @JoinColumn(name = "dept_no"),
+            inverseJoinColumns = @JoinColumn(name = "emp_no"))
+    private Set<Employee> managers;
 
     public String getDeptNo() {
         return deptNo;
