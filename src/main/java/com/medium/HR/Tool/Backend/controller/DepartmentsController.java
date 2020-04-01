@@ -1,11 +1,10 @@
 package com.medium.HR.Tool.Backend.controller;
 
+import com.medium.HR.Tool.Backend.model.Departments;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class DepartmentsController {
 
     @Autowired
-    DepartmentsRepository repository;
+    DepartmentsRepository departmentsRepository;
 
     /**
      * Lists all departments.
@@ -24,6 +23,11 @@ public class DepartmentsController {
      */
     @GetMapping
     public List<?> listDepartments() {
-        return repository.findAll();
+        return departmentsRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Departments> getDepartmentById(@PathVariable String id) {
+        return ResponseEntity.of(departmentsRepository.findById(id));
     }
 }
