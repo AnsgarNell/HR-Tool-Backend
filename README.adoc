@@ -143,11 +143,13 @@ The original database schema can be seen in <<#database-schema>>. Let's analyze 
 
 The departments entity diagram looks as follows:
 
-ifdef::env-github[image::/images/departments-schema.png[Departments Schema]]
+ifdef::env-github[]
+.Departments Schema
+image::/images/departments-schema.png[Departments Schema]
+endif::env-github[]
 ifndef::env-github[]
 [plantuml,images/departments-schema,png]
 ....
-
 entity departments {
     * dept_no : CHAR(4)
     --
@@ -161,15 +163,21 @@ endif::env-github[]
 
 The employees table contains the following information:
 
-ifdef::env-github[image::/images/employees-schema.png[Employees Schema]]
+ifdef::env-github[]
+.Employees Schema
+image::/images/employees-schema.png[Employees Schema]
+endif::env-github[]
 ifndef::env-github[]
 [plantuml,images/employees-schema,png]
 ....
-
 entity employees {
-    * dept_no : CHAR(4)
+    * emp_no : INT
     --
-    * dept_name : VARCHAR(40)
+    * birth_date : DATE
+    * first_name : VARCHAR(14)
+    * last_name : VARCHAR(16)
+    * gender : ENUM('M','F')
+    * hire_date : DATE
 }
 ....
 endif::env-github[]
