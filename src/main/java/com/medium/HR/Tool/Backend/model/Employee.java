@@ -1,5 +1,7 @@
 package com.medium.HR.Tool.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,14 +38,38 @@ public class Employee {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotNull(message = "Gender may not be null")
-    @Column(name = "gender")
-    private Gender gender;
+
 
     @NotNull(message = "Hire date may not be null")
     @Column(name = "hire_date")
     private Date hireDate;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "managers")
-    private Set<Department> manager;
+    private Set<Department> managerOf;
+
+    public Integer getEmpNo() {
+        return empNo;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public Set<Department> getManagerOf() {
+        return managerOf;
+    }
 }
