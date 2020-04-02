@@ -1,10 +1,11 @@
 package com.medium.HR.Tool.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,6 +25,7 @@ public class Department {
     private String deptName;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "dept_manager",
             joinColumns = @JoinColumn(name = "dept_no"),
@@ -36,5 +38,9 @@ public class Department {
 
     public String getDeptName() {
         return deptName;
+    }
+
+    public Set<Employee> getManagers() {
+        return managers;
     }
 }
