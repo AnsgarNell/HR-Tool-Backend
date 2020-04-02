@@ -34,3 +34,4 @@ build/
 ### Sensitive Data ###
 src/main/resources/application.properties
 /src/main/java/com/medium/HR/Tool/Backend/SecurityConfiguration.java
+/logs/app.log
