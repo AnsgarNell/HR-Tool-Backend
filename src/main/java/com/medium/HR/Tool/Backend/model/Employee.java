@@ -10,6 +10,9 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * Departments entity implementation
+ */
 @Entity
 @Table(name = "employees")
 public class Employee {

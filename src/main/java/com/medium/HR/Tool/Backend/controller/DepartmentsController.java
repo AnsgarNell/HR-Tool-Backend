@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The DepartmentsController class contains the implementation of
+ * the REST Controller for the departments
+ */
 @RestController
 @RequestMapping(value = "/departments")
 public class DepartmentsController {
@@ -33,6 +37,14 @@ public class DepartmentsController {
         return departmentsRepository.findAll();
     }
 
+    /**
+     * Returns the information for a specific department.
+     *
+     * @param id This parameter contains the department identifier
+     * @return ResponseEntity<Map<String,Object>> Returns the information in a map
+     * separating the department information and the managers information to avoid
+     * infinite JSON loops.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String,Object>> getDepartmentById(@PathVariable String id) {
         Optional<Department> optionalDepartment = departmentsRepository.findById(id);

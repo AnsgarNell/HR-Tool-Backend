@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The EmployeesController class contains the implementation of
+ * the REST Controller for the employees
+ */
 @RestController
 @RequestMapping(value = "/employees")
 public class EmployeesController {
@@ -33,6 +37,14 @@ public class EmployeesController {
         return employeesRepository.findAll();
     }
 
+    /**
+     * Returns the information for a specific employee.
+     *
+     * @param id This parameter contains the employee identifier
+     * @return ResponseEntity<Map<String,Object>> Returns the information in a map
+     * separating the employee information and the departments it has managed information
+     * (if any) to avoid infinite JSON loops.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> optionalEmployee = employeesRepository.findById(id);
