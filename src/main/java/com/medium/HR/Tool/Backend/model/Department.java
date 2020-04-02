@@ -27,7 +27,9 @@ public class Department {
     @Column(name = "dept_name")
     private String deptName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department")
+    @OrderBy("toDate DESC")
     Set<DepartmentManager> managers;
 
     public String getDeptNo() {
