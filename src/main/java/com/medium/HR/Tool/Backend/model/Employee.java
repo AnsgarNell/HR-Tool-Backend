@@ -38,7 +38,10 @@ public class Employee {
     @Column(name = "last_name")
     private String lastName;
 
-
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Gender may not be null")
+    @Column(name = "gender")
+    private Gender gender;
 
     @NotNull(message = "Hire date may not be null")
     @Column(name = "hire_date")
@@ -64,6 +67,7 @@ public class Employee {
         return lastName;
     }
 
+    public Gender getGender() { return gender; }
 
     public Date getHireDate() {
         return hireDate;
