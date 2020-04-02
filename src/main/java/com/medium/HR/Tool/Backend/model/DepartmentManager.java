@@ -1,5 +1,7 @@
 package com.medium.HR.Tool.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -11,11 +13,13 @@ public class DepartmentManager implements Serializable {
 
     @Id
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "dept_no")
     Department department;
 
     @Id
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "emp_no")
     Employee employee;
 
@@ -26,4 +30,20 @@ public class DepartmentManager implements Serializable {
     @NotNull(message = "To date may not be null")
     @Column(name = "to_date")
     private Date toDate;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
 }
