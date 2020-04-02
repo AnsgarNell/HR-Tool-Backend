@@ -30,6 +30,8 @@ public class EmployeesController {
     /**
      * Lists all employees.
      *
+     * @param startOrNull Optional parameter that sets the pagination starting point
+     * @param limitOrNull Optional parameter that sets the pagination limit
      * @return The list of employees.
      */
     @GetMapping
