@@ -27,13 +27,8 @@ public class Department {
     @Column(name = "dept_name")
     private String deptName;
 
-    @ManyToMany
-    @JsonIgnore
-    @JoinTable(
-            name = "dept_manager",
-            joinColumns = @JoinColumn(name = "dept_no"),
-            inverseJoinColumns = @JoinColumn(name = "emp_no"))
-    private Set<Employee> managers;
+    @OneToMany(mappedBy = "department")
+    Set<DepartmentManager> managers;
 
     public String getDeptNo() {
         return deptNo;
@@ -43,7 +38,7 @@ public class Department {
         return deptName;
     }
 
-    public Set<Employee> getManagers() {
+    public Set<DepartmentManager> getManagers() {
         return managers;
     }
 }

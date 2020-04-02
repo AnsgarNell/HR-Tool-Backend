@@ -50,9 +50,8 @@ public class Employee {
     @Column(name = "hire_date")
     private Date hireDate;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "managers")
-    private Set<Department> managerOf;
+    @OneToMany(mappedBy = "employee")
+    Set<DepartmentManager> managerOf;
 
     public Integer getEmpNo() {
         return empNo;
@@ -76,7 +75,7 @@ public class Employee {
         return hireDate;
     }
 
-    public Set<Department> getManagerOf() {
+    public Set<DepartmentManager> getManagerOf() {
         return managerOf;
     }
 }
