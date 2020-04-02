@@ -50,6 +50,7 @@ public class Employee {
     @Column(name = "hire_date")
     private Date hireDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "employee")
     Set<DepartmentManager> managerOf;
 
