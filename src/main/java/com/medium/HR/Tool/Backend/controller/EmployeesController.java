@@ -3,12 +3,12 @@ package com.medium.HR.Tool.Backend.controller;
 import com.medium.HR.Tool.Backend.model.Employee;
 import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.HashMap;
@@ -33,8 +33,13 @@ public class EmployeesController {
      * @return The list of employees.
      */
     @GetMapping
-    public List<?> listEmployees() {
-        return employeesRepository.findAll();
+    public List<?> listEmployees(
+            @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
+            @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limitOrNull) {
+
+        Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
+        Page<Employee> allEmployees = employeesRepository.findAll(pageable);
+        return allEmployees.toList();
     }
 
     /**
@@ -47,6 +52,7 @@ public class EmployeesController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Integer id) {
+
         Optional<Employee> optionalEmployee = employeesRepository.findById(id);
 
         if(optionalEmployee.isPresent()) {
