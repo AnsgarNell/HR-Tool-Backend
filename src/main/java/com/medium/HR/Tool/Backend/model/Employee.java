@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * Departments entity implementation
+ * Employees entity implementation
  */
 @Entity
 @Table(name = "employees")
