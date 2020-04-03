@@ -456,10 +456,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_requirements">Requirements</a>
 <ul class="sectlevel2">
 <li><a href="#_functional_requirements">Functional Requirements</a></li>
-<li><a href="#web-based-solution">Web Based Solution</a></li>
-<li><a href="#privilege-levels">Privilege Levels</a></li>
-<li><a href="#view-information">View Information</a></li>
-<li><a href="#change-information">Change information</a></li>
 <li><a href="#_non_functional_requirements">Non-functional Requirements</a></li>
 </ul>
 </li>
@@ -526,15 +522,14 @@ project, having as the main goal to replicate the existing navigation options an
 <div class="paragraph">
 <p>Based on the specifications received from the client, we have the following functional requirements:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="web-based-solution">Web Based Solution</h3>
+<div class="sect3">
+<h4 id="web-based-solution">Web Based Solution</h4>
 <div class="paragraph">
 <p>The application must be accessed using a web browser.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="privilege-levels">Privilege Levels</h3>
+<div class="sect3">
+<h4 id="privilege-levels">Privilege Levels</h4>
 <div class="paragraph">
 <p>The employees who have access to the database must belong to only and exclusively one of the following levels:</p>
 </div>
@@ -556,8 +551,8 @@ project, having as the main goal to replicate the existing navigation options an
 <p>Every level must have all the permissions from the lower levels.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="view-information">View Information</h3>
+<div class="sect3">
+<h4 id="view-information">View Information</h4>
 <div class="paragraph">
 <p>All the information stored in the database is accessible, except for the next restrictions:</p>
 </div>
@@ -577,8 +572,8 @@ project, having as the main goal to replicate the existing navigation options an
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="change-information">Change information</h3>
+<div class="sect3">
+<h4 id="change-information">Change information</h4>
 <div class="paragraph">
 <p>The only information that can be changed in the database are the salaries, and only Senior Staff
 or higher levels are allowed to do it. Following restrictions apply:</p>
@@ -589,6 +584,7 @@ or higher levels are allowed to do it. Following restrictions apply:</p>
 <p>Managers' salaries: only the Manager level must be able to change this information.</p>
 </li>
 </ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -747,6 +743,36 @@ employee number).</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_employees_controller">Employees Controller</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Path: "/employees"</p>
+<div class="paragraph">
+<p>Returns a list of employees, setting a default start and limit value. Each employee entry contains the same information
+as in the entity <a href="#employee">Employee</a>.</p>
+</div>
+</li>
+<li>
+<p>Path: "/employees/{id}"</p>
+<div class="paragraph">
+<p>Returns the following information corresponding to the employee number <em>id</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The data contained in <a href="#employee">Employee</a></p>
+</li>
+<li>
+<p>Information about the departments it has managed</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_view">View</h3>
@@ -767,7 +793,7 @@ employee number).</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-04-01 21:13:09 +0200
+Last updated 2020-04-03 10:38:56 +0200
 </div>
 </div>
 </body>

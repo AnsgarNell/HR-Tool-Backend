@@ -35,12 +35,12 @@ project, having as the main goal to replicate the existing navigation options an
 Based on the specifications received from the client, we have the following functional requirements:
 
 [#web-based-solution]
-=== Web Based Solution
+==== Web Based Solution
 
 The application must be accessed using a web browser.
 
 [#privilege-levels]
-=== Privilege Levels
+==== Privilege Levels
 
 The employees who have access to the database must belong to only and exclusively one of the following levels:
 
@@ -53,7 +53,7 @@ The employees who have access to the database must belong to only and exclusivel
 Every level must have all the permissions from the lower levels.
 
 [#view-information]
-=== View Information
+==== View Information
 
 All the information stored in the database is accessible, except for the next restrictions:
 
@@ -78,7 +78,7 @@ departments <-right-> employee : manager information
 endif::env-github[]
 
 [#change-information]
-=== Change information
+==== Change information
 
 The only information that can be changed in the database are the salaries, and only Senior Staff
 or higher levels are allowed to do it. Following restrictions apply:
@@ -175,6 +175,20 @@ Returns the following information corresponding to the department number _id_:
 ** The data contained in <<#department>>
 ** Information about the current manager
 ** The complete list of employees
+
+==== Employees Controller
+
+* Path: "/employees"
++
+Returns a list of employees, setting a default start and limit value. Each employee entry contains the same information
+as in the entity <<#employee>>.
+
+* Path: "/employees/{id}"
++
+Returns the following information corresponding to the employee number _id_:
+
+** The data contained in <<#employee>>
+** Information about the departments it has managed
 
 === View
 
