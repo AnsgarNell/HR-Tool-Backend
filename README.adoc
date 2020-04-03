@@ -117,10 +117,11 @@ This part must be shown **ONLY** if:
 * The employee **IS NOT** or **HAS NEVER** been a manager
 * The **CURRENT USER** belongs to the _Senior Staff_ **OR HIGHER** level
 
-** A list of salaries with:
-*** Salary
-*** From date
-*** To date
+If one or both of the points described apply, then show a list of salaries with the following fields:
+
+* Salary
+* From date
+* To date
 ====
 
 * In case it is or has been a manager, the view must also show a list with the following fields for each entry:
