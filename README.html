@@ -568,8 +568,189 @@ project, having as the main goal to replicate the existing navigation options an
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/sitemap.png" alt="sitemap" width="497" height="115">
+<img src="images/sitemap.png" alt="sitemap" width="613" height="140">
 </div>
+</div>
+<div class="paragraph">
+<p>The information that each view must provide is described in the next sections.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Departments List: This is the main entry point to the application. It must show a complete list of all departments
+containing for each the following information:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Department number</p>
+</li>
+<li>
+<p>Department name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Department Information: This view must contain three different sections with different information.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Information about the department itself:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Department number</p>
+</li>
+<li>
+<p>Department name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Information about the current and past managers, containing each:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First name</p>
+</li>
+<li>
+<p>Last name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>A list of all its employees, with the following fields for each of them:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Employee number</p>
+</li>
+<li>
+<p>First name</p>
+</li>
+<li>
+<p>Last name</p>
+</li>
+<li>
+<p>Title</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Employee Information: This view must contain information about the selected employee:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Employee number</p>
+</li>
+<li>
+<p>First name</p>
+</li>
+<li>
+<p>Last name</p>
+</li>
+<li>
+<p>Birth date</p>
+</li>
+<li>
+<p>Gender</p>
+</li>
+<li>
+<p>Hire date</p>
+</li>
+<li>
+<p>A list of titles with:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Title</p>
+</li>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This part must be shown <strong>ONLY</strong> if:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The employee <strong>IS NOT</strong> or <strong>HAS NEVER</strong> been a manager</p>
+</li>
+<li>
+<p>The <strong>CURRENT USER</strong> belongs to the <em>Senior Staff</em> <strong>OR HIGHER</strong> level</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A list of salaries with:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Salary</p>
+</li>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In case it is or has been a manager, the view must also show a list with the following fields for each entry:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Department number</p>
+</li>
+<li>
+<p>Department name</p>
+</li>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -878,7 +1059,7 @@ as in the entity <a href="#employee">Employee</a>.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-04-03 15:02:04 +0200
+Last updated 2020-04-03 15:43:02 +0200
 </div>
 </div>
 </body>

@@ -68,14 +68,67 @@ endif::env-github[]
 ifndef::env-github[]
 [plantuml,images/sitemap,png]
 ....
-artifact departments
-artifact employees
-artifact employee as "employee information"
-departments <-right-> employees
-employees <-right-> employee
+skinparam defaultTextAlignment center
+artifact "**Main page**\nDepartments List" as departments
+artifact "Department Information" as department
+artifact "Employee Information" as employee
+departments <-right-> department
+department <-right-> employee
 departments <-right-> employee : manager information
 ....
 endif::env-github[]
+
+The information that each view must provide is described in the next sections.
+
+* Departments List: This is the main entry point to the application. It must show a complete list of all departments
+containing for each the following information:
+** Department number
+** Department name
+
+* Department Information: This view must contain three different sections with different information.
+** Information about the department itself:
+*** Department number
+*** Department name
+** Information about the current and past managers, containing each:
+*** First name
+*** Last name
+** A list of all its employees, with the following fields for each of them:
+*** Employee number
+*** First name
+*** Last name
+*** Title
+
+* Employee Information: This view must contain information about the selected employee:
+** Employee number
+** First name
+** Last name
+** Birth date
+** Gender
+** Hire date
+** A list of titles with:
+*** Title
+*** From date
+*** To date
+
+[IMPORTANT]
+====
+This part must be shown **ONLY** if:
+
+* The employee **IS NOT** or **HAS NEVER** been a manager
+* The **CURRENT USER** belongs to the _Senior Staff_ **OR HIGHER** level
+
+** A list of salaries with:
+*** Salary
+*** From date
+*** To date
+====
+
+* In case it is or has been a manager, the view must also show a list with the following fields for each entry:
+** Department number
+** Department name
+** From date
+** To date
+
 
 [#change-information]
 ==== Change information
