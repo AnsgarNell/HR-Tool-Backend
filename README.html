@@ -695,11 +695,33 @@ implementation.
 <div class="paragraph">
 <p>The <strong>Department</strong> entity maps the <strong>departments</strong> table.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/department-schema.png" alt="department schema" width="266" height="103">
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="employee">Employee</h4>
 <div class="paragraph">
 <p>The <strong>Employee</strong> entity maps the <strong>employees</strong> table.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/employee-schema.png" alt="employee schema" width="272" height="154">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="department-manager">Department Manager</h4>
+<div class="paragraph">
+<p>The <strong>DepartmentManager</strong> class implements the join table <strong>dept_manager</strong> between the table <strong>departments</strong> and its
+current and past managers (table <strong>employees</strong>).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/department-managers-schema.png" alt="department managers schema" width="188" height="116">
+</div>
 </div>
 </div>
 </div>
@@ -711,7 +733,7 @@ to pass parameters to access to a specific information (for example, the detaile
 employee number).</p>
 </div>
 <div class="sect3">
-<h4 id="_departments_controller">Departments Controller</h4>
+<h4 id="departments-controller">Departments Controller</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -729,13 +751,46 @@ employee number).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The data contained in <a href="#department">Department</a></p>
+<p>The data contained in <a href="#department">Department</a>. Key <em>Department</em>.</p>
 </li>
 <li>
-<p>Information about the current manager</p>
+<p>Information about the current and past managers. Key <em>Managers</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based in <a href="#employee">Employee</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Employee number</p>
 </li>
 <li>
-<p>The complete list of employees</p>
+<p>First name</p>
+</li>
+<li>
+<p>Last name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Based in <a href="#department-manager">Department Manager</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The complete list of employees,in the same format as in <a href="#employee">Employee</a>. Key <em>Employees</em>.</p>
 </li>
 </ul>
 </div>
@@ -744,7 +799,7 @@ employee number).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_employees_controller">Employees Controller</h4>
+<h4 id="employees-controller">Employees Controller</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -765,7 +820,37 @@ as in the entity <a href="#employee">Employee</a>.</p>
 <p>The data contained in <a href="#employee">Employee</a></p>
 </li>
 <li>
-<p>Information about the departments it has managed</p>
+<p>If the employee is or has been a manager, information about the department and dates Key <em>Managed Departments</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based in <a href="#department">Department</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Department number</p>
+</li>
+<li>
+<p>Department name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Based in <a href="#department-manager">Department Manager</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -793,7 +878,7 @@ as in the entity <a href="#employee">Employee</a>.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-04-03 10:38:56 +0200
+Last updated 2020-04-03 12:24:43 +0200
 </div>
 </div>
 </body>

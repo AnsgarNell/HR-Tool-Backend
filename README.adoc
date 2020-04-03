@@ -150,10 +150,69 @@ Let's analyze each of the tables and it contents.
 
 The *Department* entity maps the *departments* table.
 
+ifdef::env-github[]
+.Department Schema
+image::/images/department-schema.png[Department Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-schema,png]
+....
+entity Department {
+    * deptNo : String
+    --
+    * deptName : String(40)
+    managers : Set<DepartmentManager>
+}
+....
+endif::env-github[]
+
 [#employee]
 ==== Employee
 
 The *Employee* entity maps the *employees* table.
+
+ifdef::env-github[]
+.Employee Schema
+image::/images/employee-schema.png[Employee Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/employee-schema,png]
+....
+entity Employee {
+    * empNo : Integer
+    --
+    * birthDate : Date
+    * firstName : String(14)
+    * lastName : String(16)
+    * gender : ENUM('M','F')
+    * hireDate : Date
+    managerOf : Set<DepartmentManager>
+}
+....
+endif::env-github[]
+
+[#department-manager]
+==== Department Manager
+
+The *DepartmentManager* class implements the join table *dept_manager* between the table *departments* and its
+current and past managers (table *employees*).
+
+ifdef::env-github[]
+.Department Managers Schema
+image::/images/employees-schema.png[Department Managers Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-managers-schema,png]
+....
+entity DepartmentManager {
+    * department : Department
+    * employee : Employee
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
 
 === Controller
 
@@ -161,6 +220,7 @@ Each entity has it's own controller, mapped to the corresponding path. Depending
 to pass parameters to access to a specific information (for example, the detailed view of an employee passing his
 employee number).
 
+[#departments-controller]
 ==== Departments Controller
 
 * Path: "/departments"
@@ -172,10 +232,18 @@ Returns the complete list of departments. Each department entry contains the sam
 +
 Returns the following information corresponding to the department number _id_:
 
-** The data contained in <<#department>>
-** Information about the current manager
-** The complete list of employees
+** The data contained in <<#department>>. Key _Department_.
+** Information about the current and past managers. Key _Managers_.
+*** Based in <<#employee>>:
+**** Employee number
+**** First name
+**** Last name
+*** Based in <<#department-manager>>:
+**** From date
+**** To date
+** The complete list of employees,in the same format as in <<#employee>>. Key _Employees_.
 
+[#employees-controller]
 ==== Employees Controller
 
 * Path: "/employees"
@@ -188,7 +256,13 @@ as in the entity <<#employee>>.
 Returns the following information corresponding to the employee number _id_:
 
 ** The data contained in <<#employee>>
-** Information about the departments it has managed
+** If the employee is or has been a manager, information about the department and dates Key _Managed Departments_.
+*** Based in <<#department>>:
+**** Department number
+**** Department name
+*** Based in <<#department-manager>>:
+**** From date
+**** To date
 
 === View
 
