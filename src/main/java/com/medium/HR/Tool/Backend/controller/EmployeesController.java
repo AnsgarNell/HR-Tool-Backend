@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * The EmployeesController class contains the implementation of
@@ -60,7 +57,19 @@ public class EmployeesController {
         if(optionalEmployee.isPresent()) {
             Employee employee = optionalEmployee.get();
             Map<String,Object> map = new HashMap<>();
-            map.put(employee.getClass().getSimpleName(), employee);
+            map.put("Employee", employee);
+
+            // If the employee is or has been a manager, add also this info
+            List<Object> managedDepartments = new ArrayList<>();
+            employee.getManagerOf().forEach((k)->{
+                List<Object> departmentData = new ArrayList<>();
+                departmentData.add(k.getDepartment().getDeptName());
+                departmentData.add(k);
+                managedDepartments.add(departmentData);
+            });
+            if(!managedDepartments.isEmpty()) {
+                map.put("Managed Departments", managedDepartments);
+            }
 
             return ResponseEntity.ok(map);
         }
