@@ -1,11 +1,12 @@
 package com.medium.HR.Tool.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "dept_manager")
@@ -25,10 +26,12 @@ public class DepartmentManager implements Serializable {
 
     @NotNull(message = "From date may not be null")
     @Column(name = "from_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date fromDate;
 
     @NotNull(message = "To date may not be null")
     @Column(name = "to_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date toDate;
 
     public Department getDepartment() {

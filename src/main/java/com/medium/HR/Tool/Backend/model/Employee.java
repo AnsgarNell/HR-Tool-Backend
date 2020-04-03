@@ -1,5 +1,6 @@
 package com.medium.HR.Tool.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 /**
@@ -25,6 +26,7 @@ public class Employee {
     @Past
     @NotNull(message = "Birth date may not be null")
     @Column(name = "birth_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
 
     @Size(max = 14, message
@@ -48,6 +50,7 @@ public class Employee {
 
     @NotNull(message = "Hire date may not be null")
     @Column(name = "hire_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hireDate;
 
     @JsonIgnore
@@ -78,5 +81,33 @@ public class Employee {
 
     public Set<DepartmentManager> getManagerOf() {
         return managerOf;
+    }
+
+    public void setEmpNo(Integer empNo) {
+        this.empNo = empNo;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public void setManagerOf(Set<DepartmentManager> managerOf) {
+        this.managerOf = managerOf;
     }
 }

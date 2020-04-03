@@ -43,4 +43,16 @@ public class Department {
     public Set<DepartmentManager> getManagers() {
         return managers;
     }
+
+    public void setDeptNo(String deptNo) {
+        this.deptNo = deptNo;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public void setManagers(Set<DepartmentManager> managers) {
+        this.managers = managers;
+    }
 }
