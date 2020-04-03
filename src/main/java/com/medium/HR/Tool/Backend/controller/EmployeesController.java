@@ -63,6 +63,7 @@ public class EmployeesController {
             List<Object> managedDepartments = new ArrayList<>();
             employee.getManagerOf().forEach((k)->{
                 List<Object> departmentData = new ArrayList<>();
+                departmentData.add(k.getDepartment().getDeptNo());
                 departmentData.add(k.getDepartment().getDeptName());
                 departmentData.add(k);
                 managedDepartments.add(departmentData);
