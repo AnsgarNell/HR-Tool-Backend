@@ -199,7 +199,7 @@ current and past managers (table *employees*).
 
 ifdef::env-github[]
 .Department Managers Schema
-image::/images/employees-schema.png[Department Managers Schema]
+image::/images/department-managers-schema.png[Department Managers Schema]
 endif::env-github[]
 ifndef::env-github[]
 [plantuml,images/department-managers-schema,png]
