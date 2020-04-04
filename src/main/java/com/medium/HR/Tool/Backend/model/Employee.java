@@ -19,7 +19,7 @@ import java.util.Set;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "emp_no")
     private Integer empNo;
 
@@ -45,7 +45,7 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Gender may not be null")
-    @Column(name = "gender")
+    @Column(name = "gender", columnDefinition="ENUM('M','F')")
     private Gender gender;
 
     @NotNull(message = "Hire date may not be null")

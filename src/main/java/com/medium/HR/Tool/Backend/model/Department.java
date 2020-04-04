@@ -16,8 +16,8 @@ import java.util.Set;
 public class Department {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "dept_no", columnDefinition = "char")
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
+    @Column(name = "dept_no", columnDefinition = "char(4)")
     private String deptNo;
 
     @Size(max = 40, message
