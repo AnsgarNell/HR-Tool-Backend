@@ -57,6 +57,20 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     Set<DepartmentManager> managerOf;
 
+    public Employee() {
+    }
+
+    public Employee(Integer empNo, @Past @NotNull(message = "Birth date may not be null") Date birthDate, @Size(max = 14, message
+            = "First name can not contain more than 14 characters") @NotNull(message = "First name may not be null") @NotEmpty(message = "First name may not be empty") String firstName, @Size(max = 16, message
+            = "Last name can not contain more than 16 characters") @NotNull(message = "Last name may not be null") @NotEmpty(message = "Last name may not be empty") String lastName, @NotNull(message = "Gender may not be null") Gender gender, @NotNull(message = "Hire date may not be null") Date hireDate) {
+        this.empNo = empNo;
+        this.birthDate = birthDate;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.hireDate = hireDate;
+    }
+
     public Integer getEmpNo() {
         return empNo;
     }

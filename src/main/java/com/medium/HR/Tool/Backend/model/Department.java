@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -30,7 +31,16 @@ public class Department {
     @JsonIgnore
     @OneToMany(mappedBy = "department")
     @OrderBy("toDate DESC")
-    Set<DepartmentManager> managers;
+    Set<DepartmentManager> managers = new HashSet<>();
+
+    public Department() {
+    }
+
+    public Department(String deptNo, @Size(max = 40, message
+            = "Department name can not contain more than 40 characters") @NotNull(message = "Department name may not be null") @NotEmpty(message = "Department name may not be empty") String deptName) {
+        this.deptNo = deptNo;
+        this.deptName = deptName;
+    }
 
     public String getDeptNo() {
         return deptNo;
