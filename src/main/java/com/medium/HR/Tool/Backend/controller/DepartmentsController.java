@@ -59,20 +59,25 @@ public class DepartmentsController {
             Map<String,Object> map = new HashMap<>();
             map.put("Department", department);
 
-            List<Object> managersList = new ArrayList<>();
-            department.getManagers().forEach((k)->{
-                List<Object> managerData = new ArrayList<>();
-                managerData.add((k.getEmployee().getEmpNo()));
-                managerData.add(k.getEmployee().getFirstName());
-                managerData.add(k.getEmployee().getLastName());
-                managerData.add(k);
-                managersList.add(managerData);
-            });
-            map.put("Managers", managersList);
+            if(!department.getManagers().isEmpty()) {
+                List<Object> managersList = new ArrayList<>();
+                department.getManagers().forEach((k)->{
+                    List<Object> managerData = new ArrayList<>();
+                    managerData.add((k.getEmployee().getEmpNo()));
+                    managerData.add(k.getEmployee().getFirstName());
+                    managerData.add(k.getEmployee().getLastName());
+                    managerData.add(k);
+                    managersList.add(managerData);
+                });
+                map.put("Managers", managersList);
+            }
 
             Pageable pageable = PageRequest.of(0, 90);
             Page<Employee> allEmployees = employeesRepository.findAll(pageable);
-            map.put("Employees", allEmployees.getContent());
+            if(allEmployees != null) {
+                map.put("Employees", allEmployees.getContent());
+            }
+
             return ResponseEntity.ok(map);
         }
         else throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
