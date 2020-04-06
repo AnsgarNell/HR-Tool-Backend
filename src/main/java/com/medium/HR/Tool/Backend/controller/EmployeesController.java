@@ -51,7 +51,6 @@ public class EmployeesController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Integer id) {
-
         Optional<Employee> optionalEmployee = employeesRepository.findById(id);
 
         if(optionalEmployee.isPresent()) {
