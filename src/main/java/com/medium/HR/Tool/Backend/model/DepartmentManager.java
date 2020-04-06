@@ -16,13 +16,13 @@ public class DepartmentManager implements Serializable {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "dept_no")
-    Department department;
+    private Department department;
 
     @Id
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "emp_no")
-    Employee employee;
+    private Employee employee;
 
     @NotNull(message = "From date may not be null")
     @Column(name = "from_date")
@@ -48,5 +48,21 @@ public class DepartmentManager implements Serializable {
 
     public Date getToDate() {
         return toDate;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 }
