@@ -6,6 +6,7 @@ import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -54,32 +55,33 @@ public class DepartmentsController {
     public ResponseEntity<Map<String,Object>> getDepartmentById(@PathVariable String id) {
         Optional<Department> optionalDepartment = departmentsRepository.findById(id);
 
-        if(optionalDepartment.isPresent()) {
-            Department department = optionalDepartment.get();
-            Map<String,Object> map = new HashMap<>();
-            map.put("Department", department);
-
-            if(!department.getManagers().isEmpty()) {
-                List<Object> managersList = new ArrayList<>();
-                department.getManagers().forEach((k)->{
-                    List<Object> managerData = new ArrayList<>();
-                    managerData.add((k.getEmployee().getEmpNo()));
-                    managerData.add(k.getEmployee().getFirstName());
-                    managerData.add(k.getEmployee().getLastName());
-                    managerData.add(k);
-                    managersList.add(managerData);
-                });
-                map.put("Managers", managersList);
-            }
-
-            Pageable pageable = PageRequest.of(0, 90);
-            Page<Employee> allEmployees = employeesRepository.findAll(pageable);
-            if(allEmployees != null) {
-                map.put("Employees", allEmployees.getContent());
-            }
-
-            return ResponseEntity.ok(map);
+        if(!optionalDepartment.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        else throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
+
+        Department department = optionalDepartment.get();
+        Map<String,Object> map = new HashMap<>();
+        map.put("Department", department);
+
+        if(!department.getManagers().isEmpty()) {
+            List<Object> managersList = new ArrayList<>();
+            department.getManagers().forEach((k)->{
+                List<Object> managerData = new ArrayList<>();
+                managerData.add((k.getEmployee().getEmpNo()));
+                managerData.add(k.getEmployee().getFirstName());
+                managerData.add(k.getEmployee().getLastName());
+                managerData.add(k);
+                managersList.add(managerData);
+            });
+            map.put("Managers", managersList);
+        }
+
+        Pageable pageable = PageRequest.of(0, 90);
+        Page<Employee> allEmployees = employeesRepository.findAll(pageable);
+        if(allEmployees != null) {
+            map.put("Employees", allEmployees.getContent());
+        }
+
+        return ResponseEntity.ok(map);
     }
 }
