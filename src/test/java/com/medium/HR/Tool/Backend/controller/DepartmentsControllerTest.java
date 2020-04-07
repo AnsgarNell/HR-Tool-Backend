@@ -81,23 +81,17 @@ class DepartmentsControllerTest {
     @Test
     void getDepartmentWithoutManagerNorEmployees() throws Exception {
         Department department = AuxiliaryDataCreator.createDepartment();
-        given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
-
-        ResultActions resultActions = mvc.perform(
-                get("/departments/"+ department.getDeptName()))
-                .andExpect(status().isOk());
-
-        MvcResult result = resultActions.andReturn();
-        String contentAsString = result.getResponse().getContentAsString();
-        String departmentJson = jacksonTesterDepartment.write(department).getJson();
-
-        Assert.assertEquals(departmentJson, contentAsString);
+        testDepartment(department);
     }
 
     @Test
     void getDepartmentWithManagerWithoutEmployees() throws Exception {
         Department department = AuxiliaryDataCreator.createDepartment();
         AuxiliaryDataCreator.createDepartmentManager(department);
+        testDepartment(department);
+    }
+
+    private void testDepartment(Department department) throws Exception {
         given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
 
         ResultActions resultActions = mvc.perform(
