@@ -14,21 +14,21 @@ public class EmployeeSerializer extends JsonSerializer<Employee> {
     public void serialize(Employee employee, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
             throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("Employee number", employee.getEmpNo().toString());
-        jsonGenerator.writeStringField("First name", employee.getFirstName());
-        jsonGenerator.writeStringField("Last name", employee.getLastName());
-        jsonGenerator.writeStringField("Birth date", employee.getBirthDate().toString());
-        jsonGenerator.writeStringField("Gender", employee.getGender().toString());
-        jsonGenerator.writeStringField("Hire date", employee.getHireDate().toString());
+        jsonGenerator.writeStringField("empNo", employee.getEmpNo().toString());
+        jsonGenerator.writeStringField("firstName", employee.getFirstName());
+        jsonGenerator.writeStringField("lastName", employee.getLastName());
+        jsonGenerator.writeStringField("birthDate", employee.getBirthDate().toString());
+        jsonGenerator.writeStringField("gender", employee.getGender().toString());
+        jsonGenerator.writeStringField("hireDate", employee.getHireDate().toString());
         if(!employee.getManagerOf().isEmpty()) {
-            jsonGenerator.writeArrayFieldStart("Managed departments");
+            jsonGenerator.writeArrayFieldStart("managerOf");
             for (DepartmentManager k : employee.getManagerOf()) {
                 Department department = k.getDepartment();
                 jsonGenerator.writeStartObject();
-                jsonGenerator.writeStringField("Department number", department.getDeptNo());
-                jsonGenerator.writeStringField("Department name", department.getDeptName());
-                jsonGenerator.writeStringField("From date", k.getFromDate().toString());
-                jsonGenerator.writeStringField("To date", k.getToDate().toString());
+                jsonGenerator.writeStringField("deptNo", department.getDeptNo());
+                jsonGenerator.writeStringField("deptName", department.getDeptName());
+                jsonGenerator.writeStringField("fromDate", k.getFromDate().toString());
+                jsonGenerator.writeStringField("toDate", k.getToDate().toString());
                 jsonGenerator.writeEndObject();
             }
             jsonGenerator.writeEndArray();
