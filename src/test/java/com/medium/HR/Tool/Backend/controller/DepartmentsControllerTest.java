@@ -3,8 +3,11 @@ package com.medium.HR.Tool.Backend.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medium.HR.Tool.Backend.model.Department;
+import com.medium.HR.Tool.Backend.model.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.Employee;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -35,20 +40,33 @@ class DepartmentsControllerTest {
     @MockBean
     DepartmentsRepository departmentsRepository;
 
-    @MockBean
-    EmployeesRepository employeesRepository;
-
     @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
-    private JacksonTester<Department> json;
+    private JacksonTester<Department> jacksonTesterDepartment;
 
-    private Department department;
+    @Autowired
+    private JacksonTester<List<Department>> jacksonTesterDepartmentList;
 
-    @BeforeEach
-    void setUp() {
+    @Autowired
+    private JacksonTester<Set<DepartmentManager>> jacksonTesterDepartmentManagerSet;
 
+
+    @Test
+    void getDepartmentList() throws Exception {
+
+        List<Department> departmentList = AuxiliaryDataCreator.createDepartmentList();
+        given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(departmentList);
+
+        ResultActions resultActions = mvc.perform(get("/departments"))
+                .andExpect(status().isOk());
+
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        String departmentListAsJson = jacksonTesterDepartmentList.write(departmentList).getJson();
+
+        Assert.assertEquals(departmentListAsJson, contentAsString);
     }
 
     @Test
@@ -56,30 +74,40 @@ class DepartmentsControllerTest {
 
         given(departmentsRepository.findById(any())).willReturn(Optional.ofNullable(null));
 
-        ResultActions resultActions = mvc.perform(get("/departments/d999"))
+        mvc.perform(get("/departments/d999"))
                 .andExpect(status().isNotFound());
-
     }
 
     @Test
     void getDepartmentWithoutManagerNorEmployees() throws Exception {
-
-        department = new Department("d001", "Marketing");
+        Department department = AuxiliaryDataCreator.createDepartment();
         given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
 
-        ResultActions resultActions = mvc.perform(get("/departments/"+ department.getDeptName()))
+        ResultActions resultActions = mvc.perform(
+                get("/departments/"+ department.getDeptName()))
                 .andExpect(status().isOk());
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
-        // Extract the department info from the whole JSON tree into a Department type variable
-        Department responseDepartment = objectMapper.readValue(
-                objectMapper.readTree(contentAsString).findPath("Department").toString(),
-                new TypeReference<Department>(){}
-            );
-        String responseDepartmentJson = json.write(responseDepartment).getJson();
-        String departmentJson = json.write(department).getJson();
-        assert (departmentJson.equals(responseDepartmentJson));
+        String departmentJson = jacksonTesterDepartment.write(department).getJson();
 
+        Assert.assertEquals(departmentJson, contentAsString);
+    }
+
+    @Test
+    void getDepartmentWithManagerWithoutEmployees() throws Exception {
+        Department department = AuxiliaryDataCreator.createDepartment();
+        AuxiliaryDataCreator.createDepartmentManager(department);
+        given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
+
+        ResultActions resultActions = mvc.perform(
+                get("/departments/"+ department.getDeptName()))
+                .andExpect(status().isOk());
+
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        String departmentJson = jacksonTesterDepartment.write(department).getJson();
+
+        Assert.assertEquals(departmentJson, contentAsString);
     }
 }
