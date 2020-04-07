@@ -1,9 +1,8 @@
 package com.medium.HR.Tool.Backend.controller;
 
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentManager;
-import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.Gender;
+import com.medium.HR.Tool.Backend.model.*;
+import org.springframework.data.projection.ProjectionFactory;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -13,37 +12,7 @@ import java.util.Set;
 
 public class AuxiliaryDataCreator {
 
-    static public List<Employee> createEmployeeList() {
-        List<Employee> employeeList = new ArrayList<>();
-
-        employeeList.add(createEmployee());
-
-        return employeeList;
-    }
-
-    static public void createDepartmentManager(Department department) {
-        Set<DepartmentManager> departmentManagerSet = new HashSet<>();
-        DepartmentManager departmentManager = new DepartmentManager();
-        Employee manager = createEmployee();
-
-        departmentManager.setDepartment(department);
-        departmentManager.setEmployee(manager);
-        departmentManager.setFromDate(Date.valueOf("2000-01-01"));
-        departmentManager.setToDate(Date.valueOf("9999-01-01"));
-
-        departmentManagerSet.add(departmentManager);
-        department.setManagers(departmentManagerSet);
-    }
-
-    static public List<Department> createDepartmentList() {
-        List<Department> departmentList = new ArrayList<>();
-
-        departmentList.add(new Department("d001", "Marketing"));
-        departmentList.add(new Department("d002", "Finance"));
-        departmentList.add(new Department("d003", "Human Resources"));
-
-        return departmentList;
-    }
+    static ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
     static public Employee createEmployee () {
         Employee  employee = new Employee();
@@ -60,5 +29,41 @@ public class AuxiliaryDataCreator {
     static public Department createDepartment() {
         Department department = new Department("d001", "Marketing");
         return department;
+    }
+
+    static public List<Department> createDepartmentList() {
+        List<Department> departmentList = new ArrayList<>();
+
+        departmentList.add(new Department("d001", "Marketing"));
+        departmentList.add(new Department("d002", "Finance"));
+        departmentList.add(new Department("d003", "Human Resources"));
+
+        return departmentList;
+    }
+
+    static public List<BasicDepartmentInfo> createBasicDepartmentInfoList() {
+        List<Department> departmentList = createDepartmentList();
+        List<BasicDepartmentInfo> basicDepartmentInfoList = new ArrayList<>();
+
+        for (Department department : departmentList) {
+            BasicDepartmentInfo basicDepartmentInfo = factory.createProjection(BasicDepartmentInfo.class, department);
+            basicDepartmentInfoList.add(basicDepartmentInfo);
+        }
+
+        return basicDepartmentInfoList;
+    }
+
+    static public void createDepartmentManager(Department department) {
+        Set<DepartmentManager> departmentManagerSet = new HashSet<>();
+        DepartmentManager departmentManager = new DepartmentManager();
+        Employee manager = createEmployee();
+
+        departmentManager.setDepartment(department);
+        departmentManager.setEmployee(manager);
+        departmentManager.setFromDate(Date.valueOf("2000-01-01"));
+        departmentManager.setToDate(Date.valueOf("9999-01-01"));
+
+        departmentManagerSet.add(departmentManager);
+        department.setManagers(departmentManagerSet);
     }
 }
