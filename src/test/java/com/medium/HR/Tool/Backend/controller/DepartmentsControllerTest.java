@@ -1,14 +1,10 @@
 package com.medium.HR.Tool.Backend.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.medium.HR.Tool.Backend.model.BasicDepartmentInfo;
 import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentManager;
-import com.medium.HR.Tool.Backend.model.Employee;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
-import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -22,7 +18,6 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -47,24 +42,21 @@ class DepartmentsControllerTest {
     private JacksonTester<Department> jacksonTesterDepartment;
 
     @Autowired
-    private JacksonTester<List<Department>> jacksonTesterDepartmentList;
-
-    @Autowired
-    private JacksonTester<Set<DepartmentManager>> jacksonTesterDepartmentManagerSet;
+    private JacksonTester<List<BasicDepartmentInfo>> jacksonTesterDepartmentList;
 
 
     @Test
     void getDepartmentList() throws Exception {
 
-        List<Department> departmentList = AuxiliaryDataCreator.createDepartmentList();
-        given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(departmentList);
+        List<BasicDepartmentInfo> basicDepartmentInfoList = AuxiliaryDataCreator.createBasicDepartmentInfoList();
+        given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(basicDepartmentInfoList);
 
         ResultActions resultActions = mvc.perform(get("/departments"))
                 .andExpect(status().isOk());
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
-        String departmentListAsJson = jacksonTesterDepartmentList.write(departmentList).getJson();
+        String departmentListAsJson = jacksonTesterDepartmentList.write(basicDepartmentInfoList).getJson();
 
         Assert.assertEquals(departmentListAsJson, contentAsString);
     }
