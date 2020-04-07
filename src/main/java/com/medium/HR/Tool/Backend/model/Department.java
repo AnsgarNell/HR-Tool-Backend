@@ -1,20 +1,20 @@
 package com.medium.HR.Tool.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.medium.HR.Tool.Backend.model.serializers.DepartmentSerializer;
+import com.medium.HR.Tool.Backend.model.serializers.ManagersSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Departments entity implementation
  */
 @Entity
-@JsonSerialize(using = DepartmentSerializer.class)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Table(name = "departments")
 public class Department{
 
@@ -30,9 +30,10 @@ public class Department{
     @Column(name = "dept_name")
     private String deptName;
 
+    @JsonSerialize(using = ManagersSerializer.class)
     @OneToMany(mappedBy = "department")
     @OrderBy("toDate DESC")
-    Set<DepartmentManager> managers = new HashSet<>();
+    Set<DepartmentManager> managers;
 
     public Department() {
     }

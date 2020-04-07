@@ -1,8 +1,9 @@
 package com.medium.HR.Tool.Backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.medium.HR.Tool.Backend.model.serializers.EmployeeSerializer;
+import com.medium.HR.Tool.Backend.model.serializers.ManagedDepartmentsSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -10,14 +11,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Employees entity implementation
  */
 @Entity
-@JsonSerialize(using = EmployeeSerializer.class)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Table(name = "employees")
 public class Employee {
 
@@ -56,8 +56,9 @@ public class Employee {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date hireDate;
 
+    @JsonSerialize(using = ManagedDepartmentsSerializer.class)
     @OneToMany(mappedBy = "employee")
-    Set<DepartmentManager> managerOf = new HashSet<>();
+    Set<DepartmentManager> managerOf;
 
     public Employee() {
     }
