@@ -2,6 +2,9 @@ package com.medium.HR.Tool.Backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.medium.HR.Tool.Backend.model.serializers.DepartmentSerializer;
+import com.medium.HR.Tool.Backend.model.serializers.EmployeeSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +18,7 @@ import java.util.Set;
  * Employees entity implementation
  */
 @Entity
+@JsonSerialize(using = EmployeeSerializer.class)
 @Table(name = "employees")
 public class Employee {
 

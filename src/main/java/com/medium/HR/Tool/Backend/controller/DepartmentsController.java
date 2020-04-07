@@ -28,9 +28,6 @@ public class DepartmentsController {
     @Autowired
     DepartmentsRepository departmentsRepository;
 
-    @Autowired
-    EmployeesRepository employeesRepository;
-
     /**
      * Lists all departments.
      *
@@ -50,7 +47,7 @@ public class DepartmentsController {
      * infinite JSON loops.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> getDepartmentById(@PathVariable String id) {
+    public ResponseEntity<Department> getDepartmentById(@PathVariable String id) {
         Optional<Department> optionalDepartment = departmentsRepository.findById(id);
 
         if(!optionalDepartment.isPresent()) {
@@ -58,28 +55,6 @@ public class DepartmentsController {
         }
 
         Department department = optionalDepartment.get();
-        Map<String,Object> map = new HashMap<>();
-        map.put("Department", department);
-
-        if(!department.getManagers().isEmpty()) {
-            List<Object> managersList = new ArrayList<>();
-            department.getManagers().forEach((k)->{
-                List<Object> managerData = new ArrayList<>();
-                managerData.add((k.getEmployee().getEmpNo()));
-                managerData.add(k.getEmployee().getFirstName());
-                managerData.add(k.getEmployee().getLastName());
-                managerData.add(k);
-                managersList.add(managerData);
-            });
-            map.put("Managers", managersList);
-        }
-
-        Pageable pageable = PageRequest.of(0, 90);
-        Page<Employee> allEmployees = employeesRepository.findAll(pageable);
-        if(allEmployees != null) {
-            map.put("Employees", allEmployees.getContent());
-        }
-
-        return ResponseEntity.ok(map);
+        return ResponseEntity.ok(department);
     }
 }

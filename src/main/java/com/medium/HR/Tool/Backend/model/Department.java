@@ -1,6 +1,7 @@
 package com.medium.HR.Tool.Backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.medium.HR.Tool.Backend.model.serializers.DepartmentSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -13,8 +14,9 @@ import java.util.Set;
  * Departments entity implementation
  */
 @Entity
+@JsonSerialize(using = DepartmentSerializer.class)
 @Table(name = "departments")
-public class Department {
+public class Department{
 
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE)
@@ -28,7 +30,6 @@ public class Department {
     @Column(name = "dept_name")
     private String deptName;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "department")
     @OrderBy("toDate DESC")
     Set<DepartmentManager> managers = new HashSet<>();

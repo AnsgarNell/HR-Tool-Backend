@@ -14,24 +14,20 @@ public class DepartmentManager implements Serializable {
 
     @Id
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "dept_no")
     private Department department;
 
     @Id
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "emp_no")
     private Employee employee;
 
     @NotNull(message = "From date may not be null")
     @Column(name = "from_date")
-    @JsonFormat(pattern="yyyy-MM-dd")
     private Date fromDate;
 
     @NotNull(message = "To date may not be null")
     @Column(name = "to_date")
-    @JsonFormat(pattern="yyyy-MM-dd")
     private Date toDate;
 
     public Department getDepartment() {

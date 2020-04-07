@@ -50,29 +50,13 @@ public class EmployeesController {
      * (if any) to avoid infinite JSON loops.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Integer id) {
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> optionalEmployee = employeesRepository.findById(id);
 
-        if(optionalEmployee.isPresent()) {
-            Employee employee = optionalEmployee.get();
-            Map<String,Object> map = new HashMap<>();
-            map.put("Employee", employee);
-
-            // If the employee is or has been a manager, add also this info
-            List<Object> managedDepartments = new ArrayList<>();
-            employee.getManagerOf().forEach((k)->{
-                List<Object> departmentData = new ArrayList<>();
-                departmentData.add(k.getDepartment().getDeptNo());
-                departmentData.add(k.getDepartment().getDeptName());
-                departmentData.add(k);
-                managedDepartments.add(departmentData);
-            });
-            if(!managedDepartments.isEmpty()) {
-                map.put("Managed Departments", managedDepartments);
-            }
-
-            return ResponseEntity.ok(map);
+        if(!optionalEmployee.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        else throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
+        Employee employee = optionalEmployee.get();
+        return ResponseEntity.ok(employee);
     }
 }
