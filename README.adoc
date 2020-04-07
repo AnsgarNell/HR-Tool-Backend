@@ -270,7 +270,7 @@ endif::env-github[]
 
 === Controller
 
-Each entity has it's own controller, mapped to the corresponding path. Depending on the entity, it is also possible
+Each entity (except <<department-manager>>) has it's own controller, mapped to the corresponding path. Depending on the entity, it is also possible
 to pass parameters to access to a specific information (for example, the detailed view of an employee passing his
 employee number).
 
@@ -286,8 +286,8 @@ Returns the complete list of departments. Each department entry contains the sam
 +
 Returns the following information corresponding to the department number _id_:
 
-** The data contained in <<#department>>. Key _Department_.
-** Information about the current and past managers. Key _Managers_.
+** The data contained in <<#department>>. In the root.
+** Information about the current and past managers. Key _managers_.
 *** Based in <<#employee>>:
 **** Employee number
 **** First name
@@ -295,14 +295,14 @@ Returns the following information corresponding to the department number _id_:
 *** Based in <<#department-manager>>:
 **** From date
 **** To date
-** The complete list of employees,in the same format as in <<#employee>>. Key _Employees_.
+** The complete list of employees,in the same format as in <<#employee>>. Key _employees_.
 
 [#employees-controller]
 ==== Employees Controller
 
 * Path: "/employees"
 +
-Returns a list of employees, setting a default start and limit value. Each employee entry contains the same information
+Returns a list of employees, setting a default _start_ and _limit_ value, if not provided. Each employee entry contains the same information
 as in the entity <<#employee>>.
 
 * Path: "/employees/{id}"
@@ -310,7 +310,7 @@ as in the entity <<#employee>>.
 Returns the following information corresponding to the employee number _id_:
 
 ** The data contained in <<#employee>>
-** If the employee is or has been a manager, information about the department and dates Key _Managed Departments_.
+** If the employee is or has been a manager, information about the department and dates Key _managerOf_.
 *** Based in <<#department>>:
 **** Department number
 **** Department name
