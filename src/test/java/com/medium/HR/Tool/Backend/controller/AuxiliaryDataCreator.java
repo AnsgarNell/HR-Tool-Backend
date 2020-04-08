@@ -1,14 +1,13 @@
 package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.model.*;
+import com.medium.HR.Tool.Backend.model.projections.BasicDepartmentInfo;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AuxiliaryDataCreator {
 
@@ -54,7 +53,7 @@ public class AuxiliaryDataCreator {
     }
 
     static public void createDepartmentManager(Department department) {
-        Set<DepartmentManager> departmentManagerSet = new HashSet<>();
+        List<DepartmentManager> departmentManagerSet = new ArrayList<>();
         DepartmentManager departmentManager = new DepartmentManager();
         Employee manager = createEmployee();
 

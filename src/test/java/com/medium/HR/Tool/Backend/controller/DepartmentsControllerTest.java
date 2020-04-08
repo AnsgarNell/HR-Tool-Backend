@@ -1,7 +1,7 @@
 package com.medium.HR.Tool.Backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medium.HR.Tool.Backend.model.BasicDepartmentInfo;
+import com.medium.HR.Tool.Backend.model.projections.BasicDepartmentInfo;
 import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import org.junit.Assert;
