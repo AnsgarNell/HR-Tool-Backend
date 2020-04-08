@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Departments entity implementation
@@ -33,12 +33,12 @@ public class Department{
     @JsonSerialize(using = DepartmentEmployeesSerializer.class)
     @OneToMany(mappedBy = "department")
     @OrderBy("toDate DESC")
-    Set<DepartmentManager> managers;
+    List<DepartmentManager> managers;
 
     @JsonSerialize(using = DepartmentEmployeesSerializer.class)
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     @OrderBy("toDate DESC")
-    Set<DepartmentEmployee> employees;
+    List<DepartmentEmployee> employees;
 
     public Department() {
     }
@@ -57,11 +57,11 @@ public class Department{
         return deptName;
     }
 
-    public Set<DepartmentManager> getManagers() {
+    public List<DepartmentManager> getManagers() {
         return managers;
     }
 
-    public Set<DepartmentEmployee> getEmployees() { return employees; }
+    public List<DepartmentEmployee> getEmployees() { return employees; }
 
     public void setDeptNo(String deptNo) {
         this.deptNo = deptNo;
@@ -71,9 +71,9 @@ public class Department{
         this.deptName = deptName;
     }
 
-    public void setManagers(Set<DepartmentManager> managers) {
+    public void setManagers(List<DepartmentManager> managers) {
         this.managers = managers;
     }
 
-    public void setEmployees(Set<DepartmentEmployee> employees) { this.employees = employees; }
+    public void setEmployees(List<DepartmentEmployee> employees) { this.employees = employees; }
 }

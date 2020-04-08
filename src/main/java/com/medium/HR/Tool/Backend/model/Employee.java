@@ -3,7 +3,8 @@ package com.medium.HR.Tool.Backend.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.medium.HR.Tool.Backend.model.serializers.ManagedDepartmentsSerializer;
+import com.medium.HR.Tool.Backend.model.serializers.DepartmentEmployeesSerializer;
+import com.medium.HR.Tool.Backend.model.serializers.EmployeeOfDepartmentsSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Employees entity implementation
@@ -56,9 +57,13 @@ public class Employee {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date hireDate;
 
-    @JsonSerialize(using = ManagedDepartmentsSerializer.class)
+    @JsonSerialize(using = DepartmentEmployeesSerializer.class)
     @OneToMany(mappedBy = "employee")
-    Set<DepartmentManager> managerOf;
+    List<DepartmentManager> managerOf;
+
+    @JsonSerialize(using = EmployeeOfDepartmentsSerializer.class)
+    @OneToMany(mappedBy = "employee")
+    List<DepartmentEmployee> employeeOf;
 
     public Employee() {
     }
@@ -96,7 +101,7 @@ public class Employee {
         return hireDate;
     }
 
-    public Set<DepartmentManager> getManagerOf() {
+    public List<DepartmentManager> getManagerOf() {
         return managerOf;
     }
 
@@ -124,7 +129,7 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    public void setManagerOf(Set<DepartmentManager> managerOf) {
+    public void setManagerOf(List<DepartmentManager> managerOf) {
         this.managerOf = managerOf;
     }
 }
