@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
+@IdClass(DepartmentEmployeeId.class)
 @Table(name = "dept_emp")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class DepartmentEmployee implements Serializable {
 
     @Id
