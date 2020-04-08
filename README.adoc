@@ -252,13 +252,36 @@ The *DepartmentManager* class implements the join table *dept_manager* between t
 current and past managers (table *employees*).
 
 ifdef::env-github[]
-.Department Managers Schema
-image::/images/department-managers-schema.png[Department Managers Schema]
+.Department Manager Schema
+image::/images/department-manager-schema.png[Department Manager Schema]
 endif::env-github[]
 ifndef::env-github[]
-[plantuml,images/department-managers-schema,png]
+[plantuml,images/department-manager-schema,png]
 ....
 entity DepartmentManager {
+    * department : Department
+    * employee : Employee
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
+
+[#department-employee]
+==== Department Employee
+
+The *DepartmentEmployee* class implements the join table *dept_emp* between the table *departments* and its
+current and past employees (table *employees*).
+
+ifdef::env-github[]
+.Department Employee Schema
+image::/images/department-employee-schema.png[Department Employee Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-employee-schema,png]
+....
+entity DepartmentEmployee {
     * department : Department
     * employee : Employee
     --
