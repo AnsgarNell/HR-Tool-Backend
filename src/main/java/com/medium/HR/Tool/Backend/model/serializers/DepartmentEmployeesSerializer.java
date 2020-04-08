@@ -7,13 +7,13 @@ import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import com.medium.HR.Tool.Backend.model.Employee;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.List;
 
-public class DepartmentEmployeesSerializer extends JsonSerializer<Set<DepartmentEmployee>> {
+public class DepartmentEmployeesSerializer extends JsonSerializer<List<DepartmentEmployee>> {
     @Override
-    public void serialize(Set<DepartmentEmployee> departmentEmployeesSet, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(List<DepartmentEmployee> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
-        for (DepartmentEmployee k : departmentEmployeesSet) {
+        for (DepartmentEmployee k : departmentEmployeeList) {
             Employee employee = k.getEmployee();
             jsonGenerator.writeStartObject();
             jsonGenerator.writeStringField("empNo", employee.getEmpNo().toString());
@@ -27,7 +27,7 @@ public class DepartmentEmployeesSerializer extends JsonSerializer<Set<Department
     }
 
     @Override
-    public boolean isEmpty(SerializerProvider provider, Set<DepartmentEmployee> value) {
+    public boolean isEmpty(SerializerProvider provider, List<DepartmentEmployee> value) {
         return (value == null || value.size() == 0);
     }
 }
