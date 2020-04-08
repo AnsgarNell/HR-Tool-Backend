@@ -4,16 +4,16 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.List;
 
-public class ManagedDepartmentsSerializer extends JsonSerializer<Set<DepartmentManager>> {
+public class EmployeeOfDepartmentsSerializer extends JsonSerializer<List<DepartmentEmployee>> {
     @Override
-    public void serialize(Set<DepartmentManager> departmentManagerSet, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(List<DepartmentEmployee> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
-        for (DepartmentManager k : departmentManagerSet) {
+        for (DepartmentEmployee k : departmentEmployeeList) {
             Department department = k.getDepartment();
             jsonGenerator.writeStartObject();
             jsonGenerator.writeStringField("deptNo", department.getDeptNo());
@@ -26,7 +26,7 @@ public class ManagedDepartmentsSerializer extends JsonSerializer<Set<DepartmentM
     }
 
     @Override
-    public boolean isEmpty(SerializerProvider provider, Set<DepartmentManager> value) {
+    public boolean isEmpty(SerializerProvider provider, List<DepartmentEmployee> value) {
         return (value == null || value.size() == 0);
     }
 }
