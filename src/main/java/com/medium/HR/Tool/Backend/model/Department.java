@@ -2,7 +2,7 @@ package com.medium.HR.Tool.Backend.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.medium.HR.Tool.Backend.model.serializers.ManagersSerializer;
+import com.medium.HR.Tool.Backend.model.serializers.DepartmentEmployeesSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -30,10 +30,15 @@ public class Department{
     @Column(name = "dept_name")
     private String deptName;
 
-    @JsonSerialize(using = ManagersSerializer.class)
+    @JsonSerialize(using = DepartmentEmployeesSerializer.class)
     @OneToMany(mappedBy = "department")
     @OrderBy("toDate DESC")
     Set<DepartmentManager> managers;
+
+    @JsonSerialize(using = DepartmentEmployeesSerializer.class)
+    @OneToMany(mappedBy = "department")
+    @OrderBy("toDate DESC")
+    Set<DepartmentEmployee> employees;
 
     public Department() {
     }
@@ -56,6 +61,8 @@ public class Department{
         return managers;
     }
 
+    public Set<DepartmentEmployee> getEmployees() { return employees; }
+
     public void setDeptNo(String deptNo) {
         this.deptNo = deptNo;
     }
@@ -67,4 +74,6 @@ public class Department{
     public void setManagers(Set<DepartmentManager> managers) {
         this.managers = managers;
     }
+
+    public void setEmployees(Set<DepartmentEmployee> employees) { this.employees = employees; }
 }

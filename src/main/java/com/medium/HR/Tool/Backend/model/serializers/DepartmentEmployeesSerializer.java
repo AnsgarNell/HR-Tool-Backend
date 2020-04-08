@@ -3,17 +3,17 @@ package com.medium.HR.Tool.Backend.model.serializers;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.medium.HR.Tool.Backend.model.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import com.medium.HR.Tool.Backend.model.Employee;
 
 import java.io.IOException;
 import java.util.Set;
 
-public class ManagersSerializer extends JsonSerializer<Set<DepartmentManager>> {
+public class DepartmentEmployeesSerializer extends JsonSerializer<Set<DepartmentEmployee>> {
     @Override
-    public void serialize(Set<DepartmentManager> departmentManagerSet, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(Set<DepartmentEmployee> departmentEmployeesSet, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
-        for (DepartmentManager k : departmentManagerSet) {
+        for (DepartmentEmployee k : departmentEmployeesSet) {
             Employee employee = k.getEmployee();
             jsonGenerator.writeStartObject();
             jsonGenerator.writeStringField("empNo", employee.getEmpNo().toString());
@@ -27,7 +27,7 @@ public class ManagersSerializer extends JsonSerializer<Set<DepartmentManager>> {
     }
 
     @Override
-    public boolean isEmpty(SerializerProvider provider, Set<DepartmentManager> value) {
+    public boolean isEmpty(SerializerProvider provider, Set<DepartmentEmployee> value) {
         return (value == null || value.size() == 0);
     }
 }
