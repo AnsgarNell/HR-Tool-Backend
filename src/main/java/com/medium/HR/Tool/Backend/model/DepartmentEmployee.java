@@ -11,7 +11,6 @@ import java.sql.Date;
 @Entity
 @IdClass(DepartmentEmployeeId.class)
 @Table(name = "dept_emp")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @JsonSerialize(using = DepartmentEmployeeSerializer.class)
 public class DepartmentEmployee implements Serializable {
 
