@@ -1,5 +1,8 @@
 package com.medium.HR.Tool.Backend.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.medium.HR.Tool.Backend.model.serializers.DepartmentEmployeeSerializer;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -9,6 +12,7 @@ import java.sql.Date;
 @IdClass(DepartmentEmployeeId.class)
 @Table(name = "dept_emp")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@JsonSerialize(using = DepartmentEmployeeSerializer.class)
 public class DepartmentEmployee implements Serializable {
 
     @Id
