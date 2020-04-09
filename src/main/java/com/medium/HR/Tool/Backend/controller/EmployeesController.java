@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * The EmployeesController class contains the implementation of
@@ -35,7 +35,6 @@ public class EmployeesController {
     public List<?> listEmployees(
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
             @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limitOrNull) {
-
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
         Page<Employee> allEmployees = employeesRepository.findAll(pageable);
         return allEmployees.toList();
