@@ -3,7 +3,6 @@ package com.medium.HR.Tool.Backend.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.medium.HR.Tool.Backend.model.serializers.DepartmentEmployeesSerializer;
 import com.medium.HR.Tool.Backend.model.serializers.EmployeeOfDepartmentsSerializer;
 
 import javax.persistence.*;
@@ -57,7 +56,7 @@ public class Employee {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date hireDate;
 
-    @JsonSerialize(using = DepartmentEmployeesSerializer.class)
+    @JsonSerialize(using = EmployeeOfDepartmentsSerializer.class)
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
     List<DepartmentManager> managerOf;
 
@@ -105,6 +104,8 @@ public class Employee {
         return managerOf;
     }
 
+    public List<DepartmentEmployee> getEmployeeOf() { return employeeOf; }
+
     public void setEmpNo(Integer empNo) {
         this.empNo = empNo;
     }
@@ -132,4 +133,6 @@ public class Employee {
     public void setManagerOf(List<DepartmentManager> managerOf) {
         this.managerOf = managerOf;
     }
+
+    public void setEmployeeOf(List<DepartmentEmployee> employeeOf) { this.employeeOf = employeeOf; }
 }
