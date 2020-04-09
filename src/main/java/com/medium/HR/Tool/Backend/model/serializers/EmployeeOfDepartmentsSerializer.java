@@ -12,13 +12,13 @@ import java.util.List;
 public class EmployeeOfDepartmentsSerializer extends JsonSerializer<List<DepartmentEmployee>> {
 
     @Autowired
-    DepartmentEmployeeSerializer departmentEmployeeSerializer;
+    EmployeeOfDepartmentSerializer employeeOfDepartmentSerializer;
 
     @Override
     public void serialize(List<DepartmentEmployee> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
         for (DepartmentEmployee departmentEmployee : departmentEmployeeList) {
-            departmentEmployeeSerializer.serialize(departmentEmployee, jsonGenerator, serializerProvider);
+            employeeOfDepartmentSerializer.serialize(departmentEmployee, jsonGenerator, serializerProvider);
         }
         jsonGenerator.writeEndArray();
     }
