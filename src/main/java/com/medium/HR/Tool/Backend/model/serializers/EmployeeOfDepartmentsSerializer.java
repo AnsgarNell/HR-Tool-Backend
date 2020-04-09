@@ -3,24 +3,22 @@ package com.medium.HR.Tool.Backend.model.serializers;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.List;
 
 public class EmployeeOfDepartmentsSerializer extends JsonSerializer<List<DepartmentEmployee>> {
+
+    @Autowired
+    DepartmentEmployeeSerializer departmentEmployeeSerializer;
+
     @Override
     public void serialize(List<DepartmentEmployee> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
-        for (DepartmentEmployee k : departmentEmployeeList) {
-            Department department = k.getDepartment();
-            jsonGenerator.writeStartObject();
-            jsonGenerator.writeStringField("deptNo", department.getDeptNo());
-            jsonGenerator.writeStringField("deptName", department.getDeptName());
-            jsonGenerator.writeStringField("fromDate", k.getFromDate().toString());
-            jsonGenerator.writeStringField("toDate", k.getToDate().toString());
-            jsonGenerator.writeEndObject();
+        for (DepartmentEmployee departmentEmployee : departmentEmployeeList) {
+            departmentEmployeeSerializer.serialize(departmentEmployee, jsonGenerator, serializerProvider);
         }
         jsonGenerator.writeEndArray();
     }
