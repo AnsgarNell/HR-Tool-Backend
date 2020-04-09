@@ -31,7 +31,7 @@ public class Department{
     private String deptName;
 
     @JsonSerialize(using = DepartmentEmployeesSerializer.class)
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
     @OrderBy("toDate DESC")
     List<DepartmentManager> managers;
 
