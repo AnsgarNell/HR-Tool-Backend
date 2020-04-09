@@ -318,7 +318,14 @@ Returns the following information corresponding to the department number _id_:
 *** Based in <<#department-manager>>:
 **** From date
 **** To date
-** The complete list of employees,in the same format as in <<#employee>>. Key _employees_.
+** A paginated list of employees, with the key _employees_ Contains the information:
+*** Based in <<#employee>>:
+**** Employee number
+**** First name
+**** Last name
+*** Based in <<#department-employee>>:
+**** From date
+**** To date
 
 [#employees-controller]
 ==== Employees Controller
