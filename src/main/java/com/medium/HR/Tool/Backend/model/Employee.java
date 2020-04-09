@@ -58,11 +58,11 @@ public class Employee {
     private Date hireDate;
 
     @JsonSerialize(using = DepartmentEmployeesSerializer.class)
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
     List<DepartmentManager> managerOf;
 
     @JsonSerialize(using = EmployeeOfDepartmentsSerializer.class)
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     List<DepartmentEmployee> employeeOf;
 
     public Employee() {
