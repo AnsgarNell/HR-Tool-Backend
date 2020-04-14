@@ -9,11 +9,14 @@ import com.medium.HR.Tool.Backend.model.DepartmentManager;
 import java.io.IOException;
 import java.util.List;
 
+/** Class to serialize in JSON format the departments
+ *  which an employee has managed.
+ */
 public class ManagerOfDepartmentsSerializer extends JsonSerializer<List<DepartmentManager>> {
     @Override
-    public void serialize(List<DepartmentManager> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(List<DepartmentManager> managedDepartmentsList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
-        for (DepartmentManager k : departmentEmployeeList) {
+        for (DepartmentManager k : managedDepartmentsList) {
             // TODO: Try to somehow call the EmployeeOfDepartmentSerializer from here to
             // avoid having duplicated code in both serializers
             Department department = k.getDepartment();

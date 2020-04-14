@@ -3,34 +3,37 @@ package com.medium.HR.Tool.Backend.model.serializers;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.DepartmentManager;
 import com.medium.HR.Tool.Backend.model.Employee;
 
 import java.io.IOException;
 import java.util.List;
 
-public class DepartmentEmployeesSerializer extends JsonSerializer<List<DepartmentEmployee>> {
+/** Class to serialize in JSON format the managers
+ *  from a department.
+ */
+public class DepartmentManagersSerializer extends JsonSerializer<List<DepartmentManager>> {
 
     @Override
-    public void serialize(List<DepartmentEmployee> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(List<DepartmentManager> departmentManagersList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
-        for (DepartmentEmployee departmentEmployee : departmentEmployeeList) {
+        for (DepartmentManager departmentManager : departmentManagersList) {
             // TODO: Try to somehow call the DepartmentEmployeeSerializer from here to
             // avoid having duplicated code in both serializers
-            Employee employee = departmentEmployee.getEmployee();
+            Employee employee = departmentManager.getEmployee();
             jsonGenerator.writeStartObject();
             jsonGenerator.writeStringField("empNo", employee.getEmpNo().toString());
             jsonGenerator.writeStringField("firstName", employee.getFirstName());
             jsonGenerator.writeStringField("lastName", employee.getLastName());
-            jsonGenerator.writeStringField("fromDate", departmentEmployee.getFromDate().toString());
-            jsonGenerator.writeStringField("toDate", departmentEmployee.getToDate().toString());
+            jsonGenerator.writeStringField("fromDate", departmentManager.getFromDate().toString());
+            jsonGenerator.writeStringField("toDate", departmentManager.getToDate().toString());
             jsonGenerator.writeEndObject();
         }
         jsonGenerator.writeEndArray();
     }
 
     @Override
-    public boolean isEmpty(SerializerProvider provider, List<DepartmentEmployee> value) {
+    public boolean isEmpty(SerializerProvider provider, List<DepartmentManager> value) {
         return (value == null || value.size() == 0);
     }
 }

@@ -9,6 +9,9 @@ import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import java.io.IOException;
 import java.util.List;
 
+/** Class to serialize in JSON format the departments
+ *  in which an employee has worked.
+ */
 public class EmployeeOfDepartmentsSerializer extends JsonSerializer<List<DepartmentEmployee>> {
     @Override
     public void serialize(List<DepartmentEmployee> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {

@@ -2,7 +2,6 @@ package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
-import com.medium.HR.Tool.Backend.model.projections.BasicDepartmentInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,17 +52,16 @@ public class DepartmentsController {
     public ResponseEntity<Map<String,Object>> getDepartmentById(
             @PathVariable String id,
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
-            @RequestParam(value = "limit", required = false, defaultValue = "10") Integer limitOrNull) {
-        Optional<BasicDepartmentInfo> optionalBasicDepartmentInfo = departmentsRepository.findByDeptNo(id);
-        if(!optionalBasicDepartmentInfo.isPresent()) {
+            @RequestParam(value = "limit", required = false, defaultValue = "30") Integer limitOrNull) {
+        Optional<Department> optionalDepartment = departmentsRepository.findById(id);
+        if(!optionalDepartment.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        BasicDepartmentInfo basicDepartmentInfo = optionalBasicDepartmentInfo.get();
-        Map<String,Object> map = new HashMap<>();
-        map.put("Department", basicDepartmentInfo);
 
-        // TODO: Change the way the employees list is get, using somehow a pageable ManyToMany relationship.
-        Department department = new Department(basicDepartmentInfo.getDeptNo(), basicDepartmentInfo.getDeptName());
+        Department department = optionalDepartment.get();
+        Map<String,Object> map = new HashMap<>();
+        map.put("Department", department);
+
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
         Page<DepartmentEmployee> departmentEmployeePage = departmentEmployeeRepository.findAllByDepartment(department, pageable);
         List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
