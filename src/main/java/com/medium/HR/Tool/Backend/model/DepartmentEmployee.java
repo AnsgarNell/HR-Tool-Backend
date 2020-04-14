@@ -15,12 +15,12 @@ import java.sql.Date;
 public class DepartmentEmployee implements Serializable {
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_no")
     private Department department;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_no")
     private Employee employee;
 

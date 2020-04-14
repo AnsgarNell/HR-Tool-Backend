@@ -58,12 +58,19 @@ public class Employee {
     private Date hireDate;
 
     @JsonSerialize(using = ManagerOfDepartmentsSerializer.class)
-    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     List<DepartmentManager> managerOf;
 
     @JsonSerialize(using = EmployeeOfDepartmentsSerializer.class)
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     List<DepartmentEmployee> employeeOf;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    List<Title> titles;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @OrderBy("fromDate ASC")
+    List<Salary> salaries;
 
     public Employee() {
     }
@@ -91,9 +98,7 @@ public class Employee {
         return firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
+    public String getLastName() { return lastName; }
 
     public Gender getGender() { return gender; }
 
@@ -106,6 +111,14 @@ public class Employee {
     }
 
     public List<DepartmentEmployee> getEmployeeOf() { return employeeOf; }
+
+    public List<Title> getTitles() {
+        return titles;
+    }
+
+    public List<Salary> getSalaries() {
+        return salaries;
+    }
 
     public void setEmpNo(Integer empNo) {
         this.empNo = empNo;
@@ -136,4 +149,12 @@ public class Employee {
     }
 
     public void setEmployeeOf(List<DepartmentEmployee> employeeOf) { this.employeeOf = employeeOf; }
+
+    public void setTitles(List<Title> titles) {
+        this.titles = titles;
+    }
+
+    public void setSalaries(List<Salary> salaries) {
+        this.salaries = salaries;
+    }
 }
