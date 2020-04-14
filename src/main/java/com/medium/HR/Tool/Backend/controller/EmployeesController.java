@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -49,13 +51,15 @@ public class EmployeesController {
      * (if any) to avoid infinite JSON loops.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
+    public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> optionalEmployee = employeesRepository.findById(id);
-
         if(!optionalEmployee.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+
+        Map<String,Object> map = new HashMap<>();
         Employee employee = optionalEmployee.get();
-        return ResponseEntity.ok(employee);
+        map.put("Employee", employee);
+        return ResponseEntity.ok(map);
     }
 }
