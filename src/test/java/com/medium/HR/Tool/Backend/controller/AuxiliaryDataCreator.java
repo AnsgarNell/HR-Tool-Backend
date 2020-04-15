@@ -1,7 +1,10 @@
 package com.medium.HR.Tool.Backend.controller;
 
-import com.medium.HR.Tool.Backend.model.*;
-import com.medium.HR.Tool.Backend.model.projections.BasicDepartmentInfo;
+import com.medium.HR.Tool.Backend.model.Department;
+import com.medium.HR.Tool.Backend.model.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.Employee;
+import com.medium.HR.Tool.Backend.model.Gender;
+import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
@@ -40,16 +43,16 @@ public class AuxiliaryDataCreator {
         return departmentList;
     }
 
-    static public List<BasicDepartmentInfo> createBasicDepartmentInfoList() {
+    static public List<DepartmentBasicInfo> createBasicDepartmentInfoList() {
         List<Department> departmentList = createDepartmentList();
-        List<BasicDepartmentInfo> basicDepartmentInfoList = new ArrayList<>();
+        List<DepartmentBasicInfo> departmentBasicInfoList = new ArrayList<>();
 
         for (Department department : departmentList) {
-            BasicDepartmentInfo basicDepartmentInfo = factory.createProjection(BasicDepartmentInfo.class, department);
-            basicDepartmentInfoList.add(basicDepartmentInfo);
+            DepartmentBasicInfo departmentBasicInfo = factory.createProjection(DepartmentBasicInfo.class, department);
+            departmentBasicInfoList.add(departmentBasicInfo);
         }
 
-        return basicDepartmentInfoList;
+        return departmentBasicInfoList;
     }
 
     static public void createDepartmentManager(Department department) {
