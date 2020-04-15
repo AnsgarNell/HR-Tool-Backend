@@ -1,10 +1,12 @@
 package com.medium.HR.Tool.Backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medium.HR.Tool.Backend.model.projections.BasicDepartmentInfo;
 import com.medium.HR.Tool.Backend.model.Department;
+import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
+import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
+import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -35,35 +37,36 @@ class DepartmentsControllerTest {
     @MockBean
     DepartmentsRepository departmentsRepository;
 
+    @MockBean
+    DepartmentEmployeeRepository departmentEmployeeRepository;
+
     @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
-    private JacksonTester<Department> jacksonTesterDepartment;
+    private JacksonTester<DepartmentDTO> departmentDTOJacksonTester;
 
     @Autowired
-    private JacksonTester<List<BasicDepartmentInfo>> jacksonTesterDepartmentList;
+    private JacksonTester<List<DepartmentBasicInfo>> jacksonTesterDepartmentList;
 
 
     @Test
     void getDepartmentList() throws Exception {
-
-        List<BasicDepartmentInfo> basicDepartmentInfoList = AuxiliaryDataCreator.createBasicDepartmentInfoList();
-        given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(basicDepartmentInfoList);
+        List<DepartmentBasicInfo> departmentBasicInfoList = AuxiliaryDataCreator.createBasicDepartmentInfoList();
+        given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(departmentBasicInfoList);
 
         ResultActions resultActions = mvc.perform(get("/departments"))
                 .andExpect(status().isOk());
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
-        String departmentListAsJson = jacksonTesterDepartmentList.write(basicDepartmentInfoList).getJson();
+        String departmentListAsJson = jacksonTesterDepartmentList.write(departmentBasicInfoList).getJson();
 
-        Assert.assertEquals(departmentListAsJson, contentAsString);
+        Assertions.assertEquals(departmentListAsJson, contentAsString);
     }
 
     @Test
     void getNonExistingDepartment() throws Exception {
-
         given(departmentsRepository.findById(any())).willReturn(Optional.ofNullable(null));
 
         mvc.perform(get("/departments/d999"))
@@ -90,10 +93,12 @@ class DepartmentsControllerTest {
                 get("/departments/"+ department.getDeptName()))
                 .andExpect(status().isOk());
 
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        departmentDTO.setDepartment(department);
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
-        String departmentJson = jacksonTesterDepartment.write(department).getJson();
+        String departmentJson = departmentDTOJacksonTester.write(departmentDTO).getJson();
 
-        Assert.assertEquals(departmentJson, contentAsString);
+        Assertions.assertEquals(departmentJson, contentAsString);
     }
 }
