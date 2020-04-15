@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.config.Projection;
 @Projection(
         name = "basicDepartmentInfo",
         types = { Department.class })
-public interface BasicDepartmentInfo {
+public interface DepartmentBasicInfo {
     String getDeptNo();
     String getDeptName();
 }
