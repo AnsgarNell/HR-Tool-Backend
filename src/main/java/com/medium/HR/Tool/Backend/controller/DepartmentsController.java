@@ -2,6 +2,7 @@ package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -49,24 +48,26 @@ public class DepartmentsController {
      * separating the department information and the paginated employees information
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> getDepartmentById(
+    public ResponseEntity<DepartmentDTO> getDepartmentById(
             @PathVariable String id,
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
             @RequestParam(value = "limit", required = false, defaultValue = "30") Integer limitOrNull) {
         Optional<Department> optionalDepartment = departmentsRepository.findById(id);
-        if(!optionalDepartment.isPresent()) {
+        if (!optionalDepartment.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         Department department = optionalDepartment.get();
-        Map<String,Object> map = new HashMap<>();
-        map.put("Department", department);
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        departmentDTO.setDepartment(department);
 
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
-        Page<DepartmentEmployee> departmentEmployeePage = departmentEmployeeRepository.findAllByDepartment(department, pageable);
-        List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
-        map.put("Employees", departmentEmployeeList);
+        Optional<Page<DepartmentEmployee>> optionalDepartmentEmployeePage = departmentEmployeeRepository.findAllByDepartment(department, pageable);
+        if (optionalDepartmentEmployeePage.isPresent()) {
+            List<DepartmentEmployee> departmentEmployeeList = optionalDepartmentEmployeePage.get().toList();
+            departmentDTO.setEmployees(departmentEmployeeList);
+        }
 
-        return ResponseEntity.ok(map);
+        return ResponseEntity.ok(departmentDTO);
     }
 }
