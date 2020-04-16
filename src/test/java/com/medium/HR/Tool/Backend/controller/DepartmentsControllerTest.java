@@ -2,6 +2,7 @@ package com.medium.HR.Tool.Backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medium.HR.Tool.Backend.model.Department;
+import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
 import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -75,26 +77,34 @@ class DepartmentsControllerTest {
 
     @Test
     void getDepartmentWithoutManagerNorEmployees() throws Exception {
-        Department department = AuxiliaryDataCreator.createDepartment();
-        testDepartment(department);
+        DepartmentDTO departmentDTO = AuxiliaryDataCreator.createDepartmentDTO();
+        testDepartment(departmentDTO);
     }
 
     @Test
     void getDepartmentWithManagerWithoutEmployees() throws Exception {
-        Department department = AuxiliaryDataCreator.createDepartment();
-        AuxiliaryDataCreator.createDepartmentManager(department);
-        testDepartment(department);
+        DepartmentDTO departmentDTO = AuxiliaryDataCreator.createDepartmentDTO();
+        AuxiliaryDataCreator.createDepartmentManager(departmentDTO);
+        testDepartment(departmentDTO);
     }
 
-    private void testDepartment(Department department) throws Exception {
-        given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
+    @Test
+    void getDepartmentWithManagerAndEmployees() throws Exception {
+        DepartmentDTO departmentDTO = AuxiliaryDataCreator.createDepartmentDTO();
+        AuxiliaryDataCreator.createDepartmentManager(departmentDTO);
+        Page<DepartmentEmployee> departmentEmployeePage = AuxiliaryDataCreator.createPagedDepartmentEmployees(departmentDTO);
+        List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
+        departmentDTO.setEmployees(departmentEmployeeList);
+        given(departmentEmployeeRepository.findAllByDepartment(any(), any())).willReturn(Optional.of(departmentEmployeePage));
+        testDepartment(departmentDTO);
+    }
+
+    private void testDepartment(DepartmentDTO departmentDTO) throws Exception {
+        given(departmentsRepository.findById(any())).willReturn(Optional.of(departmentDTO.getDepartment()));
 
         ResultActions resultActions = mvc.perform(
-                get("/departments/"+ department.getDeptName()))
-                .andExpect(status().isOk());
+                get("/departments/"+ departmentDTO.getDepartment().getDeptName()));
 
-        DepartmentDTO departmentDTO = new DepartmentDTO();
-        departmentDTO.setDepartment(department);
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
         String departmentJson = departmentDTOJacksonTester.write(departmentDTO).getJson();
