@@ -1,7 +1,5 @@
 package com.medium.HR.Tool.Backend.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
 import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
@@ -41,9 +39,6 @@ class DepartmentsControllerTest {
 
     @MockBean
     DepartmentEmployeeRepository departmentEmployeeRepository;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Autowired
     private JacksonTester<DepartmentDTO> departmentDTOJacksonTester;
