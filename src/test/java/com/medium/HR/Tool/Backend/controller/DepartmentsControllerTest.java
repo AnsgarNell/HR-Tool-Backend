@@ -5,12 +5,12 @@ import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
 import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
+import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
@@ -26,8 +26,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest
 @AutoConfigureJsonTesters
 class DepartmentsControllerTest {
 
@@ -39,6 +38,9 @@ class DepartmentsControllerTest {
 
     @MockBean
     DepartmentEmployeeRepository departmentEmployeeRepository;
+
+    @MockBean
+    EmployeesRepository employeesRepository;
 
     @Autowired
     private JacksonTester<DepartmentDTO> departmentDTOJacksonTester;
