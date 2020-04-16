@@ -30,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureJsonTesters
 class DepartmentsControllerTest {
 
+    private final static String URI = "/departments/";
+
     @Autowired
     private MockMvc mvc;
 
@@ -54,7 +56,7 @@ class DepartmentsControllerTest {
         List<DepartmentBasicInfo> departmentBasicInfoList = AuxiliaryDataCreator.createBasicDepartmentInfoList();
         given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(departmentBasicInfoList);
 
-        ResultActions resultActions = mvc.perform(get("/departments"))
+        ResultActions resultActions = mvc.perform(get(URI))
                 .andExpect(status().isOk());
 
         MvcResult result = resultActions.andReturn();
@@ -68,7 +70,7 @@ class DepartmentsControllerTest {
     void getNonExistingDepartment() throws Exception {
         given(departmentsRepository.findById(any())).willReturn(Optional.ofNullable(null));
 
-        mvc.perform(get("/departments/d999"))
+        mvc.perform(get(URI + "d999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -100,7 +102,7 @@ class DepartmentsControllerTest {
         given(departmentsRepository.findById(any())).willReturn(Optional.of(departmentDTO.getDepartment()));
 
         ResultActions resultActions = mvc.perform(
-                get("/departments/"+ departmentDTO.getDepartment().getDeptName()));
+                get(URI + departmentDTO.getDepartment().getDeptName()));
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
