@@ -488,8 +488,8 @@ implementation.
 <div class="sect3">
 <h4 id="department-manager">Department Manager</h4>
 <div class="paragraph">
-<p>The <strong>DepartmentManager</strong> class implements the join table <strong>dept_manager</strong> between the table <strong>departments</strong> and its
-current and past managers (table <strong>employees</strong>).</p>
+<p>The <strong>DepartmentManager</strong> class implements the join table <strong>dept_manager</strong> between the entity <a href="#department">Department</a> and its
+current and past managers (entity <a href="#employee">Employee</a>).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -500,8 +500,8 @@ current and past managers (table <strong>employees</strong>).</p>
 <div class="sect3">
 <h4 id="department-employee">Department Employee</h4>
 <div class="paragraph">
-<p>The <strong>DepartmentEmployee</strong> class implements the join table <strong>dept_emp</strong> between the table <strong>departments</strong> and its
-current and past employees (table <strong>employees</strong>).</p>
+<p>The <strong>DepartmentEmployee</strong> class implements the join table <strong>dept_emp</strong> between the entity <a href="#department">Department</a> and its
+current and past employees (entity <a href="#employee">Employee</a>).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -509,11 +509,35 @@ current and past employees (table <strong>employees</strong>).</p>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="title">Title</h4>
+<div class="paragraph">
+<p>The <strong>Title</strong> class implements the <strong>titles</strong> table, a many to one relationship to the table <a href="#employee">Employee</a> which contains its
+current and past titles.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/title-schema.png" alt="title schema" width="165" height="116">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="salary">Salary</h4>
+<div class="paragraph">
+<p>The <strong>Salary</strong> class implements the <strong>salaries</strong> table, a many to one relationship to the table <a href="#employee">Employee</a> which contains
+its current and past salaries.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/salary-schema.png" alt="salary schema" width="165" height="116">
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-19 20:07:19 +0200
+Last updated 2020-04-19 20:26:30 +0200
 </div>
 </div>
 </body>

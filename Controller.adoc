@@ -61,3 +61,17 @@ Returns the following information corresponding to the employee number _id_:
 *** Based in <<#department-manager>>:
 **** From date
 **** To date
+** Information about the titles that the employee has currently or had in the past. Key _titles_.
+*** Title
+*** From date
+*** To date
+
+[NOTE]
+====
+Only if the user has enough permissions:
+
+** Information about the salaries that the employee has currently or had in the past. Key _salaries_.
+*** Salary
+*** From date
+*** To date
+====

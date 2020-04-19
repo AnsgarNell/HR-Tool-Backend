@@ -61,8 +61,8 @@ endif::env-github[]
 [#department-manager]
 ==== Department Manager
 
-The *DepartmentManager* class implements the join table *dept_manager* between the table *departments* and its
-current and past managers (table *employees*).
+The *DepartmentManager* class implements the join table *dept_manager* between the entity <<department>> and its
+current and past managers (entity <<employee>>).
 
 ifdef::env-github[]
 .Department Manager Schema
@@ -84,8 +84,8 @@ endif::env-github[]
 [#department-employee]
 ==== Department Employee
 
-The *DepartmentEmployee* class implements the join table *dept_emp* between the table *departments* and its
-current and past employees (table *employees*).
+The *DepartmentEmployee* class implements the join table *dept_emp* between the entity <<department>> and its
+current and past employees (entity <<employee>>).
 
 ifdef::env-github[]
 .Department Employee Schema
@@ -97,6 +97,52 @@ ifndef::env-github[]
 entity DepartmentEmployee {
     * department : Department
     * employee : Employee
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
+
+[#title]
+==== Title
+
+The *Title* class implements the *titles* table, a many to one relationship to the table <<employee>> which contains its
+current and past titles.
+
+ifdef::env-github[]
+.Title Schema
+image::/images/title-schema.png[Title Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/title-schema,png]
+....
+entity Title {
+    * employee : Employee
+    * title : String
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
+
+[#salary]
+==== Salary
+
+The *Salary* class implements the *salaries* table, a many to one relationship to the table <<employee>> which contains
+its current and past salaries.
+
+ifdef::env-github[]
+.Salary Schema
+image::/images/salary-schema.png[Salary Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/salary-schema,png]
+....
+entity Salary {
+    * employee : Employee
+    * salary : Integer
     --
     * fromDate : Date
     * toDate : Date
