@@ -66,6 +66,7 @@ public class Employee {
     List<DepartmentEmployee> employeeOf;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @OrderBy("fromDate ASC")
     List<Title> titles;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
