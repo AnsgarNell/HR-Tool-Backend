@@ -53,7 +53,7 @@ class DepartmentsControllerTest {
 
     @Test
     void getDepartmentList() throws Exception {
-        List<DepartmentBasicInfo> departmentBasicInfoList = AuxiliaryDataCreator.createBasicDepartmentInfoList();
+        List<DepartmentBasicInfo> departmentBasicInfoList = AuxiliaryDepartmentCreator.createDepartmentBasicInfos();
         given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(departmentBasicInfoList);
 
         ResultActions resultActions = mvc.perform(get(URI))
@@ -61,9 +61,9 @@ class DepartmentsControllerTest {
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
-        String departmentListAsJson = jacksonTesterDepartmentList.write(departmentBasicInfoList).getJson();
+        String listAsJson = jacksonTesterDepartmentList.write(departmentBasicInfoList).getJson();
 
-        Assertions.assertEquals(departmentListAsJson, contentAsString);
+        Assertions.assertEquals(listAsJson, contentAsString);
     }
 
     @Test
@@ -76,22 +76,22 @@ class DepartmentsControllerTest {
 
     @Test
     void getDepartmentWithoutManagerNorEmployees() throws Exception {
-        DepartmentDTO departmentDTO = AuxiliaryDataCreator.createDepartmentDTO();
+        DepartmentDTO departmentDTO = AuxiliaryDepartmentCreator.createDepartmentDTO();
         testDepartment(departmentDTO);
     }
 
     @Test
     void getDepartmentWithManagerWithoutEmployees() throws Exception {
-        DepartmentDTO departmentDTO = AuxiliaryDataCreator.createDepartmentDTO();
-        AuxiliaryDataCreator.createDepartmentManager(departmentDTO);
+        DepartmentDTO departmentDTO = AuxiliaryDepartmentCreator.createDepartmentDTO();
+        AuxiliaryDepartmentCreator.createDepartmentManager(departmentDTO);
         testDepartment(departmentDTO);
     }
 
     @Test
     void getDepartmentWithManagerAndEmployees() throws Exception {
-        DepartmentDTO departmentDTO = AuxiliaryDataCreator.createDepartmentDTO();
-        AuxiliaryDataCreator.createDepartmentManager(departmentDTO);
-        Page<DepartmentEmployee> departmentEmployeePage = AuxiliaryDataCreator.createPagedDepartmentEmployees(departmentDTO);
+        DepartmentDTO departmentDTO = AuxiliaryDepartmentCreator.createDepartmentDTO();
+        AuxiliaryDepartmentCreator.createDepartmentManager(departmentDTO);
+        Page<DepartmentEmployee> departmentEmployeePage = AuxiliaryDepartmentEmployeeCreator.createPagedDepartmentEmployees(departmentDTO);
         List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
         departmentDTO.setEmployees(departmentEmployeeList);
         given(departmentEmployeeRepository.findAllByDepartment(any(), any())).willReturn(Optional.of(departmentEmployeePage));
