@@ -1,6 +1,7 @@
 package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.model.Employee;
+import com.medium.HR.Tool.Backend.model.projections.EmployeeBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,7 +39,7 @@ public class EmployeesController {
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
             @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limitOrNull) {
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
-        Page<Employee> allEmployees = employeesRepository.findAll(pageable);
+        Page<EmployeeBasicInfo> allEmployees = employeesRepository.findAllByOrderByEmpNoAsc(pageable);
         return allEmployees.toList();
     }
 
@@ -51,15 +52,12 @@ public class EmployeesController {
      * (if any) to avoid infinite JSON loops.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Integer id) {
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> optionalEmployee = employeesRepository.findById(id);
         if (!optionalEmployee.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
-        Map<String,Object> map = new HashMap<>();
         Employee employee = optionalEmployee.get();
-        map.put("Employee", employee);
-        return ResponseEntity.ok(map);
+        return ResponseEntity.ok(employee);
     }
 }
