@@ -57,6 +57,7 @@ public class EmployeesController {
         if (!optionalEmployee.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        // TODO: Hide or get salaries information based on permissions.
         Employee employee = optionalEmployee.get();
         return ResponseEntity.ok(employee);
     }
