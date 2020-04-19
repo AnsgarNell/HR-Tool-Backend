@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<meta name="author" content="Ansgar Nell">
-<title>Human Resources Management System</title>
+<title>Controller</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,446 +435,215 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Human Resources Management System</h1>
-<div class="details">
-<span id="author" class="author">Ansgar Nell</span><br>
-<span id="email" class="email">ansgar.nell@(Google's email).com</span><br>
-<span id="revnumber">version 1.0,</span>
-<span id="revdate">March 30, 2020</span>
-</div>
-<div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_introduction">Introduction</a></li>
-<li><a href="#_existing_database">Existing Database</a></li>
-<li><a href="#_existing_ms_dos_system">Existing MS-DOS System</a></li>
-<li><a href="#_requirements">Requirements</a>
-<ul class="sectlevel2">
-<li><a href="#_functional_requirements">Functional Requirements</a></li>
-<li><a href="#_non_functional_requirements">Non-functional Requirements</a></li>
-</ul>
-</li>
-<li><a href="#_used_technologies">Used Technologies</a></li>
-<li><a href="#_system_design">System Design</a>
-<ul class="sectlevel2">
-<li><a href="#_model">Model</a></li>
-<li><a href="#_controller">Controller</a></li>
-<li><a href="#_view">View</a></li>
-</ul>
-</li>
-</ul>
-</div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This document describes the Human Resources (HR) Management System developed based on the
-<a href="https://dev.mysql.com/doc/employee/en/">Employees Sample Database</a> provided by <a href="https://www.mysql.com/">MySQL</a>.
-<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_introduction">Introduction</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The HR Management System development has been done as a request received by the Imaginary Company, which wants to
-update their current MS-DOS based solution to a Web environment.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_existing_database">Existing Database</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The solution must be done taken into account that the database already exists. The company wishes to continue
-working with it without doing a migration or losing any data, but it is possible to add new tables and information.
-The schema can be seen in the next image:</p>
-</div>
-<div id="database-schema" class="imageblock">
-<div class="content">
-<img src="images/employees-database-schema.png" alt="Employees Database Schema">
-</div>
-<div class="title">Figure 1. Database Schema</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_existing_ms_dos_system">Existing MS-DOS System</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Our client currently works with a MS-DOS based system. This program will be used as an orientation for the new
-project, having as the main goal to replicate the existing navigation options and operations.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_requirements">Requirements</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_functional_requirements">Functional Requirements</h3>
-<div class="paragraph">
-<p>Based on the specifications received from the client, we have the following functional requirements:</p>
-</div>
-<div class="sect3">
-<h4 id="web-based-solution">Web Based Solution</h4>
-<div class="paragraph">
-<p>The application must be accessed using a web browser.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="privilege-levels">Privilege Levels</h4>
-<div class="paragraph">
-<p>The employees who have access to the database must belong to only and exclusively one of the following levels:</p>
-</div>
-<div id="privilege-levels-levels" class="olist arabic">
-<div class="title">Privilege levels (in descending order)</div>
-<ol class="arabic">
-<li>
-<p>HR Manager (Manager)</p>
-</li>
-<li>
-<p>HR Senior Staff (Senior Staff)</p>
-</li>
-<li>
-<p>HR Staff (Staff)</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Every level must have all the permissions from the lower levels.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="view-information">View Information</h4>
-<div class="paragraph">
-<p>All the information stored in the database is accessible, except for the next restrictions:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Managers' salaries: only allowed to Senior Staff or higher.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>As detailed in the indications about the navigation, the system sitemap must follow the next diagram:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/sitemap.png" alt="sitemap" width="613" height="140">
-</div>
-</div>
-<div class="paragraph">
-<p>The information that each view must provide is described in the next sections.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Departments List: This is the main entry point to the application. It must show a complete list of all departments
-containing for each the following information:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Department number</p>
-</li>
-<li>
-<p>Department name</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Department Information: This view must contain three different sections with different information.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Information about the department itself:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Department number</p>
-</li>
-<li>
-<p>Department name</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Information about the current and past managers, containing each:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>First name</p>
-</li>
-<li>
-<p>Last name</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>A list of all its employees, with the following fields for each of them:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Employee number</p>
-</li>
-<li>
-<p>First name</p>
-</li>
-<li>
-<p>Last name</p>
-</li>
-<li>
-<p>Title</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Employee Information: This view must contain information about the selected employee:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Employee number</p>
-</li>
-<li>
-<p>First name</p>
-</li>
-<li>
-<p>Last name</p>
-</li>
-<li>
-<p>Birth date</p>
-</li>
-<li>
-<p>Gender</p>
-</li>
-<li>
-<p>Hire date</p>
-</li>
-<li>
-<p>A list of titles with:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Title</p>
-</li>
-<li>
-<p>From date</p>
-</li>
-<li>
-<p>To date</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This part must be shown <strong>ONLY</strong> if:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The employee <strong>IS NOT</strong> or <strong>HAS NEVER</strong> been a manager</p>
-</li>
-<li>
-<p>The <strong>CURRENT USER</strong> belongs to the <em>Senior Staff</em> <strong>OR HIGHER</strong> level</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If one or both of the points described apply, then show a list of salaries with the following fields:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Salary</p>
-</li>
-<li>
-<p>From date</p>
-</li>
-<li>
-<p>To date</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>In case it is or has been a manager, the view must also show a list with the following fields for each entry:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Department number</p>
-</li>
-<li>
-<p>Department name</p>
-</li>
-<li>
-<p>From date</p>
-</li>
-<li>
-<p>To date</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="change-information">Change information</h4>
-<div class="paragraph">
-<p>The only information that can be changed in the database are the salaries, and only Senior Staff
-or higher levels are allowed to do it. Following restrictions apply:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Managers' salaries: only the Manager level must be able to change this information.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_non_functional_requirements">Non-functional Requirements</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_used_technologies">Used Technologies</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Used Technologies</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Version</th>
-<th class="tableblock halign-left valign-top">Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://spring.io/projects/spring-boot">Spring Boot</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.2.6.RELEASE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Backend Implementation</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.jetbrains.com/idea/">IntelliJ</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2019.3.4 (Community Edition)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java IDE</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.docker.com/">Docker</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">19.03.8</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Containerization</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://asciidoctor.org/">Asciidoctor</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.10</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Documentation</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.mysql.com/">MySQL</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8.0.19</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://angular.io/">Angular</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">9.1.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Frontend Implementation</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.jetbrains.com/webstorm/">WebStorm</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2019.3.4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Angular IDE</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://semantic-ui.com/">Semantic UI</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.2.13</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CSS Styling</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_system_design">System Design</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The system will be developed using the Model-View-Controller (MVC) software design pattern.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/mvc-diagram.jpg" alt="MVC Software Design Pattern">
-</div>
-<div class="title">Figure 2. (taken from <a href="https://commons.wikimedia.org/wiki/File:MVC_Diagram_(Model-View-Controller).svg">Wikimedia Commons</a>)</div>
-</div>
-<div class="sect2">
-<h3 id="_model">Model</h3>
-<div class="paragraph">
-<p>Refer to the <a href="Model.adoc">Model Documentation</a> for more information.</p>
-</div>
-</div>
 <div class="sect2">
 <h3 id="_controller">Controller</h3>
 <div class="paragraph">
-<p>Refer to the <a href="Controller.adoc">Controller Documentation</a> for more information.</p>
+<p>Each entity (except <a href="#department-manager">[department-manager]</a>) has it&#8217;s own controller, mapped to the corresponding path. Depending on the entity, it is also possible
+to pass parameters to access to a specific information (for example, the detailed view of an employee passing his
+employee number).</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_view">View</h3>
+<div class="sect3">
+<h4 id="departments-controller">Departments Controller</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Path: "/departments"</p>
 <div class="paragraph">
-<p>The View part of the application is implemented using the Angular framework. The documentation can be consulted
-<a href="https://github.com/AnsgarNell/HRToolFrontend">here</a>.</p>
+<p>Returns the complete list of departments. Each department entry contains the same information as in the entity
+<a href="#department">[department]</a>.</p>
+</div>
+</li>
+<li>
+<p>Path: "/departments/{id}"</p>
+<div class="paragraph">
+<p>Returns the following information corresponding to the department number <em>id</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The data contained in <a href="#department">[department]</a>. In the root.</p>
+</li>
+<li>
+<p>Information about the current and past managers. Key <em>managers</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based in <a href="#employee">[employee]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Employee number</p>
+</li>
+<li>
+<p>First name</p>
+</li>
+<li>
+<p>Last name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Based in <a href="#department-manager">[department-manager]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>A paginated list of employees, with the key <em>employees</em> Contains the information:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based in <a href="#employee">[employee]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Employee number</p>
+</li>
+<li>
+<p>First name</p>
+</li>
+<li>
+<p>Last name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Based in <a href="#department-employee">[department-employee]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="employees-controller">Employees Controller</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Path: "/employees"</p>
+<div class="paragraph">
+<p>Returns a list of employees, setting a default <em>start</em> and <em>limit</em> value, if not provided. Each employee entry contains the same information
+as in the entity <a href="#employee">[employee]</a>.</p>
+</div>
+</li>
+<li>
+<p>Path: "/employees/{id}"</p>
+<div class="paragraph">
+<p>Returns the following information corresponding to the employee number <em>id</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The data contained in <a href="#employee">[employee]</a>, and more specifically in the following cases:</p>
+</li>
+<li>
+<p>If the employee is or has been a manager, information about the department and dates. Key <em>managerOf</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based in <a href="#department">[department]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Department number</p>
+</li>
+<li>
+<p>Department name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Based in <a href="#department-manager">[department-manager]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Information about the department and dates where the employee has worked. Key <em>employeeOf</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based in <a href="#department">[department]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Department number</p>
+</li>
+<li>
+<p>Department name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Based in <a href="#department-manager">[department-manager]</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The development of the project is explained in the Medium Article (will be linked when finished)
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0<br>
-Last updated 2020-04-19 20:16:45 +0200
+Last updated 2020-04-19 20:12:22 +0200
 </div>
 </div>
 </body>
