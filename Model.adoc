@@ -1,0 +1,105 @@
+=== Model
+
+The original database schema can be seen in <<#database-schema>>.
+
+NOTE: For the development, the entities names are in *singular* form, in order to avoid confusion when using a single
+instance or several. So, the Employees tables is mapped to the Employee class, and so on. The plural form has been
+maintained for other components like repositories or controllers. The same strategy has been followed in the frontend
+implementation.
+
+Let's analyze each of the tables and it contents.
+
+[#department]
+==== Department
+
+The *Department* entity maps the *departments* table.
+
+ifdef::env-github[]
+.Department Schema
+image::/images/department-schema.png[Department Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-schema,png]
+....
+entity Department {
+    * deptNo : String
+    --
+    * deptName : String(40)
+    managers : Set<DepartmentManager>
+}
+....
+endif::env-github[]
+
+[#employee]
+==== Employee
+
+The *Employee* entity maps the *employees* table.
+
+ifdef::env-github[]
+.Employee Schema
+image::/images/employee-schema.png[Employee Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/employee-schema,png]
+....
+entity Employee {
+    * empNo : Integer
+    --
+    * birthDate : Date
+    * firstName : String(14)
+    * lastName : String(16)
+    * gender : ENUM('M','F')
+    * hireDate : Date
+    managerOf : List<DepartmentManager>
+    employeeOf : List<DepartmentEmployee>
+    titles : List<Title>
+    salaries : List<Salary>
+}
+....
+endif::env-github[]
+
+[#department-manager]
+==== Department Manager
+
+The *DepartmentManager* class implements the join table *dept_manager* between the table *departments* and its
+current and past managers (table *employees*).
+
+ifdef::env-github[]
+.Department Manager Schema
+image::/images/department-manager-schema.png[Department Manager Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-manager-schema,png]
+....
+entity DepartmentManager {
+    * department : Department
+    * employee : Employee
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
+
+[#department-employee]
+==== Department Employee
+
+The *DepartmentEmployee* class implements the join table *dept_emp* between the table *departments* and its
+current and past employees (table *employees*).
+
+ifdef::env-github[]
+.Department Employee Schema
+image::/images/department-employee-schema.png[Department Employee Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-employee-schema,png]
+....
+entity DepartmentEmployee {
+    * department : Department
+    * employee : Employee
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
