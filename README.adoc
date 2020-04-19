@@ -240,7 +240,10 @@ entity Employee {
     * lastName : String(16)
     * gender : ENUM('M','F')
     * hireDate : Date
-    managerOf : Set<DepartmentManager>
+    managerOf : List<DepartmentManager>
+    employeeOf : List<DepartmentEmployee>
+    titles : List<Title>
+    salaries : List<Salary>
 }
 ....
 endif::env-github[]
@@ -339,8 +342,15 @@ as in the entity <<#employee>>.
 +
 Returns the following information corresponding to the employee number _id_:
 
-** The data contained in <<#employee>>
-** If the employee is or has been a manager, information about the department and dates Key _managerOf_.
+** The data contained in <<#employee>>, and more specifically in the following cases:
+** If the employee is or has been a manager, information about the department and dates. Key _managerOf_.
+*** Based in <<#department>>:
+**** Department number
+**** Department name
+*** Based in <<#department-manager>>:
+**** From date
+**** To date
+** Information about the department and dates where the employee has worked. Key _employeeOf_.
 *** Based in <<#department>>:
 **** Department number
 **** Department name

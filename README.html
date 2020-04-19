@@ -885,7 +885,7 @@ implementation.
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/employee-schema.png" alt="employee schema" width="272" height="154">
+<img src="images/employee-schema.png" alt="employee schema" width="283" height="193">
 </div>
 </div>
 </div>
@@ -1039,10 +1039,43 @@ as in the entity <a href="#employee">Employee</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The data contained in <a href="#employee">Employee</a></p>
+<p>The data contained in <a href="#employee">Employee</a>, and more specifically in the following cases:</p>
 </li>
 <li>
-<p>If the employee is or has been a manager, information about the department and dates Key <em>managerOf</em>.</p>
+<p>If the employee is or has been a manager, information about the department and dates. Key <em>managerOf</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Based in <a href="#department">Department</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Department number</p>
+</li>
+<li>
+<p>Department name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Based in <a href="#department-manager">Department Manager</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>From date</p>
+</li>
+<li>
+<p>To date</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Information about the department and dates where the employee has worked. Key <em>employeeOf</em>.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1100,7 +1133,7 @@ as in the entity <a href="#employee">Employee</a>.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-04-09 19:00:34 +0200
+Last updated 2020-04-19 16:25:30 +0200
 </div>
 </div>
 </body>
