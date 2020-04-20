@@ -1,4 +1,4 @@
-package com.medium.HR.Tool.Backend.controller;
+package com.medium.HR.Tool.Backend.auxiliary;
 
 import com.medium.HR.Tool.Backend.model.*;
 import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
@@ -14,7 +14,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuxiliaryDepartmentEmployeeCreator {
+public class DepartmentEmployeeCreator {
 
     static ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 

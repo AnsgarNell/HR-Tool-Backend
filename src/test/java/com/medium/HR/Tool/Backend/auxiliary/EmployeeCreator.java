@@ -1,10 +1,7 @@
-package com.medium.HR.Tool.Backend.controller;
+package com.medium.HR.Tool.Backend.auxiliary;
 
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import com.medium.HR.Tool.Backend.model.Employee;
 import com.medium.HR.Tool.Backend.model.Gender;
-import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
 import com.medium.HR.Tool.Backend.model.projections.EmployeeBasicInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,11 +12,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuxiliaryEmployeeCreator {
+public class EmployeeCreator {
 
     static public Employee createEmployee () {
         Employee  employee = new Employee();
-        employee.setEmpNo(0);
+        employee.setEmpNo(1);
         employee.setFirstName("Test");
         employee.setLastName("Employee");
         employee.setBirthDate(Date.valueOf("1980-01-01"));
@@ -49,7 +46,7 @@ public class AuxiliaryEmployeeCreator {
         List<EmployeeBasicInfo> employeeBasicInfoList = new ArrayList<>();
 
         for(Employee employee : employeeList) {
-            EmployeeBasicInfo employeeBasicInfo = AuxiliaryDepartmentEmployeeCreator.factory.createProjection(EmployeeBasicInfo.class, employee);
+            EmployeeBasicInfo employeeBasicInfo = DepartmentEmployeeCreator.factory.createProjection(EmployeeBasicInfo.class, employee);
             employeeBasicInfoList.add(employeeBasicInfo);
         }
         return employeeBasicInfoList;

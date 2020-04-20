@@ -1,4 +1,4 @@
-package com.medium.HR.Tool.Backend.controller;
+package com.medium.HR.Tool.Backend.auxiliary;
 
 import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.DepartmentManager;
@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuxiliaryDepartmentCreator {
+public class DepartmentCreator {
     static public Department createDepartment() {
         Department department = new Department("d001", "Marketing");
         return department;
@@ -38,7 +38,7 @@ public class AuxiliaryDepartmentCreator {
         List<DepartmentBasicInfo> departmentBasicInfoList = new ArrayList<>();
 
         for (Department department : departmentList) {
-            DepartmentBasicInfo departmentBasicInfo = AuxiliaryDepartmentEmployeeCreator.factory.createProjection(DepartmentBasicInfo.class, department);
+            DepartmentBasicInfo departmentBasicInfo = DepartmentEmployeeCreator.factory.createProjection(DepartmentBasicInfo.class, department);
             departmentBasicInfoList.add(departmentBasicInfo);
         }
 
@@ -48,7 +48,7 @@ public class AuxiliaryDepartmentCreator {
     static public void createDepartmentManager(Department department) {
         List<DepartmentManager> departmentManagerSet = new ArrayList<>();
         DepartmentManager departmentManager = new DepartmentManager();
-        Employee manager = AuxiliaryEmployeeCreator.createEmployee();
+        Employee manager = EmployeeCreator.createEmployee();
 
         departmentManager.setDepartment(department);
         departmentManager.setEmployee(manager);
