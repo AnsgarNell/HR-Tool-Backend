@@ -1,5 +1,7 @@
 package com.medium.HR.Tool.Backend.controller;
 
+import com.medium.HR.Tool.Backend.auxiliary.EmployeeCreator;
+import com.medium.HR.Tool.Backend.model.Employee;
 import com.medium.HR.Tool.Backend.model.projections.EmployeeBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
@@ -43,11 +45,14 @@ public class EmployeesControllerTest {
     DepartmentEmployeeRepository departmentEmployeeRepository;
 
     @Autowired
+    private JacksonTester<Employee> jacksonTesterEmployee;
+
+    @Autowired
     private JacksonTester<List<EmployeeBasicInfo>> jacksonTesterEmployeeList;
 
     @Test
     public void listEmployees() throws Exception {
-        Page<EmployeeBasicInfo> employeeBasicInfoPage = AuxiliaryEmployeeCreator.createPagedEmployeeBasicInfos();
+        Page<EmployeeBasicInfo> employeeBasicInfoPage = EmployeeCreator.createPagedEmployeeBasicInfos();
         given(employeesRepository.findAllByOrderByEmpNoAsc(any())).willReturn(employeeBasicInfoPage);
 
         ResultActions resultActions = mvc.perform(get(URI))
@@ -69,6 +74,17 @@ public class EmployeesControllerTest {
     }
 
     @Test
-    public void getEmployeeById() {
+    public void getEmployeeById() throws Exception {
+        Employee employee = EmployeeCreator.createEmployee();
+        given(employeesRepository.findById(employee.getEmpNo())).willReturn(Optional.of(employee));
+
+        ResultActions resultActions = mvc.perform(get(URI + employee.getEmpNo()))
+                .andExpect(status().isOk());
+
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        String employeeJson = jacksonTesterEmployee.write(employee).getJson();
+
+        Assertions.assertEquals(employeeJson, contentAsString);
     }
 }

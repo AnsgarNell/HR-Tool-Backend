@@ -1,5 +1,7 @@
 package com.medium.HR.Tool.Backend.controller;
 
+import com.medium.HR.Tool.Backend.auxiliary.DepartmentCreator;
+import com.medium.HR.Tool.Backend.auxiliary.DepartmentEmployeeCreator;
 import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
 import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
@@ -53,7 +55,7 @@ class DepartmentsControllerTest {
 
     @Test
     void getDepartmentList() throws Exception {
-        List<DepartmentBasicInfo> departmentBasicInfoList = AuxiliaryDepartmentCreator.createDepartmentBasicInfos();
+        List<DepartmentBasicInfo> departmentBasicInfoList = DepartmentCreator.createDepartmentBasicInfos();
         given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(departmentBasicInfoList);
 
         ResultActions resultActions = mvc.perform(get(URI))
@@ -76,22 +78,22 @@ class DepartmentsControllerTest {
 
     @Test
     void getDepartmentWithoutManagerNorEmployees() throws Exception {
-        DepartmentDTO departmentDTO = AuxiliaryDepartmentCreator.createDepartmentDTO();
+        DepartmentDTO departmentDTO = DepartmentCreator.createDepartmentDTO();
         testDepartment(departmentDTO);
     }
 
     @Test
     void getDepartmentWithManagerWithoutEmployees() throws Exception {
-        DepartmentDTO departmentDTO = AuxiliaryDepartmentCreator.createDepartmentDTO();
-        AuxiliaryDepartmentCreator.createDepartmentManager(departmentDTO);
+        DepartmentDTO departmentDTO = DepartmentCreator.createDepartmentDTO();
+        DepartmentCreator.createDepartmentManager(departmentDTO);
         testDepartment(departmentDTO);
     }
 
     @Test
     void getDepartmentWithManagerAndEmployees() throws Exception {
-        DepartmentDTO departmentDTO = AuxiliaryDepartmentCreator.createDepartmentDTO();
-        AuxiliaryDepartmentCreator.createDepartmentManager(departmentDTO);
-        Page<DepartmentEmployee> departmentEmployeePage = AuxiliaryDepartmentEmployeeCreator.createPagedDepartmentEmployees(departmentDTO);
+        DepartmentDTO departmentDTO = DepartmentCreator.createDepartmentDTO();
+        DepartmentCreator.createDepartmentManager(departmentDTO);
+        Page<DepartmentEmployee> departmentEmployeePage = DepartmentEmployeeCreator.createPagedDepartmentEmployees(departmentDTO);
         List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
         departmentDTO.setEmployees(departmentEmployeeList);
         given(departmentEmployeeRepository.findAllByDepartment(any(), any())).willReturn(Optional.of(departmentEmployeePage));
@@ -102,7 +104,8 @@ class DepartmentsControllerTest {
         given(departmentsRepository.findById(any())).willReturn(Optional.of(departmentDTO.getDepartment()));
 
         ResultActions resultActions = mvc.perform(
-                get(URI + departmentDTO.getDepartment().getDeptName()));
+                get(URI + departmentDTO.getDepartment().getDeptName()))
+                .andExpect(status().isOk());
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
