@@ -35,7 +35,7 @@ public class EmployeesController {
      * @return The list of employees.
      */
     @GetMapping
-    public List<?> listEmployees(
+    public List<?> getEmployees(
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
             @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limitOrNull) {
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);

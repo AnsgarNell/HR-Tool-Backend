@@ -36,7 +36,7 @@ public class DepartmentsController {
      * @return The list of departments.
      */
     @GetMapping
-    public List<?> listDepartments() {
+    public List<?> getDepartments() {
         return departmentsRepository.findAllByOrderByDeptNoAsc();
     }
 
