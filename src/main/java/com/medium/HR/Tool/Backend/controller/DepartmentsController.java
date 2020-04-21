@@ -51,7 +51,7 @@ public class DepartmentsController {
     public ResponseEntity<DepartmentDTO> getDepartmentById(
             @PathVariable String id,
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
-            @RequestParam(value = "limit", required = false, defaultValue = "30") Integer limitOrNull) {
+            @RequestParam(value = "limit", required = false, defaultValue = "10") Integer limitOrNull) {
         Optional<Department> optionalDepartment = departmentsRepository.findById(id);
         if (!optionalDepartment.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
