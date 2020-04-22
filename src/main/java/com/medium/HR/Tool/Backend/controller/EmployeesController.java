@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -35,12 +34,19 @@ public class EmployeesController {
      * @return The list of employees.
      */
     @GetMapping
-    public List<?> getEmployees(
+    public ResponseEntity<List<?>> getEmployees(
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
             @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limitOrNull) {
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
         Page<EmployeeBasicInfo> allEmployees = employeesRepository.findAllByOrderByEmpNoAsc(pageable);
-        return allEmployees.toList();
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("X-Total-Count",
+                String.valueOf(allEmployees.getTotalElements()));
+
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(allEmployees.toList());
     }
 
     /**
