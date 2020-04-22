@@ -2,8 +2,8 @@ package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.auxiliary.DepartmentCreator;
 import com.medium.HR.Tool.Backend.auxiliary.DepartmentEmployeeCreator;
+import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
-import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
 import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
@@ -47,10 +47,13 @@ class DepartmentsControllerTest {
     EmployeesRepository employeesRepository;
 
     @Autowired
-    private JacksonTester<DepartmentDTO> departmentDTOJacksonTester;
+    private JacksonTester<Department> jacksonTesterDepartment;
 
     @Autowired
     private JacksonTester<List<DepartmentBasicInfo>> jacksonTesterDepartmentList;
+
+    @Autowired
+    private JacksonTester<List<DepartmentEmployee>> jacksonTesterEmployeeList;
 
 
     @Test
@@ -78,38 +81,54 @@ class DepartmentsControllerTest {
 
     @Test
     void getDepartmentWithoutManagerNorEmployees() throws Exception {
-        DepartmentDTO departmentDTO = DepartmentCreator.createDepartmentDTO();
-        testDepartment(departmentDTO);
+        Department department = DepartmentCreator.createDepartment();
+        testDepartment(department);
     }
 
     @Test
     void getDepartmentWithManagerWithoutEmployees() throws Exception {
-        DepartmentDTO departmentDTO = DepartmentCreator.createDepartmentDTO();
-        DepartmentCreator.createDepartmentManager(departmentDTO);
-        testDepartment(departmentDTO);
+        Department department = DepartmentCreator.createDepartment();
+        DepartmentCreator.createDepartmentManager(department);
+        testDepartment(department);
     }
 
-    @Test
-    void getDepartmentWithManagerAndEmployees() throws Exception {
-        DepartmentDTO departmentDTO = DepartmentCreator.createDepartmentDTO();
-        DepartmentCreator.createDepartmentManager(departmentDTO);
-        Page<DepartmentEmployee> departmentEmployeePage = DepartmentEmployeeCreator.createPagedDepartmentEmployees(departmentDTO);
-        List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
-        departmentDTO.setEmployees(departmentEmployeeList);
-        given(departmentEmployeeRepository.findAllByDepartment(any(), any())).willReturn(Optional.of(departmentEmployeePage));
-        testDepartment(departmentDTO);
-    }
-
-    private void testDepartment(DepartmentDTO departmentDTO) throws Exception {
-        given(departmentsRepository.findById(any())).willReturn(Optional.of(departmentDTO.getDepartment()));
+    private void testDepartment(Department department) throws Exception {
+        given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
 
         ResultActions resultActions = mvc.perform(
-                get(URI + departmentDTO.getDepartment().getDeptName()))
+                get(URI + department.getDeptNo()))
                 .andExpect(status().isOk());
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
-        String departmentJson = departmentDTOJacksonTester.write(departmentDTO).getJson();
+        String departmentJson = jacksonTesterDepartment.write(department).getJson();
+
+        Assertions.assertEquals(departmentJson, contentAsString);
+    }
+
+    @Test
+    void getDepartmentEmptyEmployees() throws Exception {
+        Department department = DepartmentCreator.createDepartment();
+        given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
+        ResultActions resultActions = mvc.perform(
+                get(URI + department.getDeptNo() + "/employees"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getDepartmentEmployees() throws Exception {
+        Department department = DepartmentCreator.createDepartment();
+        Page<DepartmentEmployee> departmentEmployeePage = DepartmentEmployeeCreator.createPagedDepartmentEmployees(department);
+        List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
+        given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
+        given(departmentEmployeeRepository.findAllByDepartment(any(), any())).willReturn(Optional.of(departmentEmployeePage));
+        ResultActions resultActions = mvc.perform(
+                get(URI + department.getDeptNo() + "/employees"))
+                .andExpect(status().isOk());
+
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        String departmentJson = jacksonTesterEmployeeList.write(departmentEmployeeList).getJson();
 
         Assertions.assertEquals(departmentJson, contentAsString);
     }

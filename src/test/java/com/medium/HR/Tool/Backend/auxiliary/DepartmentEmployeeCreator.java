@@ -1,8 +1,6 @@
 package com.medium.HR.Tool.Backend.auxiliary;
 
 import com.medium.HR.Tool.Backend.model.*;
-import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
-import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -38,10 +36,6 @@ public class DepartmentEmployeeCreator {
         return departmentEmployeeList;
     }
 
-    static public List<DepartmentEmployee> createDepartmentEmployees(DepartmentDTO departmentDTO) {
-        return createDepartmentEmployees(departmentDTO.getDepartment());
-    }
-
     static public Page<DepartmentEmployee> createPagedDepartmentEmployees(Department department) {
         List<DepartmentEmployee> departmentEmployeeList = createDepartmentEmployees(department);
         Pageable pageable = PageRequest.of(0, departmentEmployeeList.size());
@@ -49,13 +43,4 @@ public class DepartmentEmployeeCreator {
 
         return departmentEmployeePage;
     }
-
-    static public Page<DepartmentEmployee> createPagedDepartmentEmployees(DepartmentDTO departmentDTO) {
-        List<DepartmentEmployee> departmentEmployeeList = createDepartmentEmployees(departmentDTO);
-        Pageable pageable = PageRequest.of(0, departmentEmployeeList.size());
-        Page<DepartmentEmployee> departmentEmployeePage = new PageImpl<DepartmentEmployee>(departmentEmployeeList, pageable, departmentEmployeeList.size());
-
-        return departmentEmployeePage;
-    }
-
 }

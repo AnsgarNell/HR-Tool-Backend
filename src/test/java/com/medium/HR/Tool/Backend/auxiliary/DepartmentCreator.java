@@ -3,7 +3,6 @@ package com.medium.HR.Tool.Backend.auxiliary;
 import com.medium.HR.Tool.Backend.model.Department;
 import com.medium.HR.Tool.Backend.model.DepartmentManager;
 import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.dtos.DepartmentDTO;
 import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
 
 import java.sql.Date;
@@ -14,13 +13,6 @@ public class DepartmentCreator {
     static public Department createDepartment() {
         Department department = new Department("d001", "Marketing");
         return department;
-    }
-
-    static public DepartmentDTO createDepartmentDTO() {
-        Department department = createDepartment();
-        DepartmentDTO departmentDTO = new DepartmentDTO();
-        departmentDTO.setDepartment(department);
-        return departmentDTO;
     }
 
     static public List<Department> createDepartmentList() {
@@ -57,9 +49,5 @@ public class DepartmentCreator {
 
         departmentManagerSet.add(departmentManager);
         department.setManagers(departmentManagerSet);
-    }
-
-    static public void createDepartmentManager(DepartmentDTO departmentDTO) {
-        createDepartmentManager(departmentDTO.getDepartment());
     }
 }
