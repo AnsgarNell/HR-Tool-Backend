@@ -10,8 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,7 @@ import java.util.Optional;
  * the REST Controller for the employees
  */
 @RestController
+@Validated
 @RequestMapping(value = "/employees")
 public class EmployeesController {
 
@@ -36,7 +40,7 @@ public class EmployeesController {
     @GetMapping
     public ResponseEntity<List<?>> getEmployees(
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
-            @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limitOrNull) {
+            @RequestParam(value = "limit", required = false, defaultValue = "50") @Valid @Max(100) Integer limitOrNull) {
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
         Page<EmployeeBasicInfo> allEmployees = employeesRepository.findAllByOrderByEmpNoAsc(pageable);
 

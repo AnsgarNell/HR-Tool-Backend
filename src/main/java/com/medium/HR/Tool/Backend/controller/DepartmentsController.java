@@ -11,8 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ import java.util.Optional;
  * the REST Controller for the departments
  */
 @RestController
+@Validated
 @RequestMapping(value = "/departments")
 public class DepartmentsController {
 
@@ -48,14 +52,13 @@ public class DepartmentsController {
      * separating the department information and the paginated employees information
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Department> getDepartmentById(
-            @PathVariable String id,
-            @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
-            @RequestParam(value = "limit", required = false, defaultValue = "10") Integer limitOrNull) {
+    public ResponseEntity<Department> getDepartmentById(@PathVariable String id) {
         Optional<Department> optionalDepartment = departmentsRepository.findById(id);
+
         if (!optionalDepartment.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+
         Department department = optionalDepartment.get();
         return ResponseEntity.ok(department);
     }
@@ -71,17 +74,20 @@ public class DepartmentsController {
     public ResponseEntity<List<DepartmentEmployee>> getEmployeesByDepartment(
             @PathVariable String id,
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
-            @RequestParam(value = "limit", required = false, defaultValue = "20") Integer limitOrNull) {
+            @RequestParam(value = "limit", required = false, defaultValue = "20") @Valid @Max(100) Integer limitOrNull) {
         Optional<Department> optionalDepartment = departmentsRepository.findById(id);
+
         if (!optionalDepartment.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+
         Department department = optionalDepartment.get();
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
         Optional<Page<DepartmentEmployee>> optionalDepartmentEmployeePage = departmentEmployeeRepository.findAllByDepartment(department, pageable);
         if (!optionalDepartmentEmployeePage.isPresent()) {
             return ResponseEntity.ok().build();
         }
+
         Page<DepartmentEmployee> departmentEmployeePage = optionalDepartmentEmployeePage.get();
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("X-Total-Count",
