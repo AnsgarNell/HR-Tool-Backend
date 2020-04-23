@@ -96,7 +96,7 @@ containing for each the following information:
 *** Employee number
 *** First name
 *** Last name
-*** Title
+*** Current title
 
 * Employee Information: This view must contain information about the selected employee:
 ** Employee number
