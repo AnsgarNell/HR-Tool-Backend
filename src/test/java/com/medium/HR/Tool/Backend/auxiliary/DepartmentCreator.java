@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentCreator {
+
     static public Department createDepartment() {
-        Department department = new Department("d001", "Marketing");
-        return department;
+        return new Department("d001", "Marketing");
     }
 
     static public List<Department> createDepartmentList() {
@@ -25,7 +25,7 @@ public class DepartmentCreator {
         return departmentList;
     }
 
-    static public List<DepartmentBasicInfo> createDepartmentBasicInfos() {
+    static public List<DepartmentBasicInfo> createDepartmentBasicInfoList() {
         List<Department> departmentList = createDepartmentList();
         List<DepartmentBasicInfo> departmentBasicInfoList = new ArrayList<>();
 
