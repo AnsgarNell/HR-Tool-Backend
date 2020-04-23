@@ -3,8 +3,9 @@ package com.medium.HR.Tool.Backend.controller;
 import com.medium.HR.Tool.Backend.auxiliary.DepartmentCreator;
 import com.medium.HR.Tool.Backend.auxiliary.DepartmentEmployeeCreator;
 import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
 import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
+import com.medium.HR.Tool.Backend.model.projections.DepartmentEmployeeBasicInfo;
+import com.medium.HR.Tool.Backend.model.projections.EmployeeBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,12 +55,12 @@ class DepartmentsControllerTest {
     private JacksonTester<List<DepartmentBasicInfo>> jacksonTesterDepartmentList;
 
     @Autowired
-    private JacksonTester<List<DepartmentEmployee>> jacksonTesterEmployeeList;
+    private JacksonTester<List<EmployeeBasicInfo>> jacksonTesterDepartmentEmployeeBasicInfoList;
 
 
     @Test
     void getDepartmentList() throws Exception {
-        List<DepartmentBasicInfo> departmentBasicInfoList = DepartmentCreator.createDepartmentBasicInfos();
+        List<DepartmentBasicInfo> departmentBasicInfoList = DepartmentCreator.createDepartmentBasicInfoList();
         given(departmentsRepository.findAllByOrderByDeptNoAsc()).willReturn(departmentBasicInfoList);
 
         ResultActions resultActions = mvc.perform(get(URI))
@@ -73,7 +75,7 @@ class DepartmentsControllerTest {
 
     @Test
     void getNonExistingDepartment() throws Exception {
-        given(departmentsRepository.findById(any())).willReturn(Optional.ofNullable(null));
+        given(departmentsRepository.findById(any())).willReturn(Optional.empty());
 
         mvc.perform(get(URI + "d999"))
                 .andExpect(status().isNotFound());
@@ -118,17 +120,18 @@ class DepartmentsControllerTest {
     @Test
     void getDepartmentEmployees() throws Exception {
         Department department = DepartmentCreator.createDepartment();
-        Page<DepartmentEmployee> departmentEmployeePage = DepartmentEmployeeCreator.createPagedDepartmentEmployees(department);
-        List<DepartmentEmployee> departmentEmployeeList = departmentEmployeePage.toList();
+        Page<DepartmentEmployeeBasicInfo> employeeBasicInfoPage = DepartmentEmployeeCreator.createPagedDepartmentEmployees(department);
+        List<EmployeeBasicInfo> employeeBasicInfoList = new ArrayList<>();
+        employeeBasicInfoPage.toList().forEach(departmentEmployeeBasic -> employeeBasicInfoList.add(departmentEmployeeBasic.getEmployee()));
         given(departmentsRepository.findById(any())).willReturn(Optional.of(department));
-        given(departmentEmployeeRepository.findAllByDepartment(any(), any())).willReturn(Optional.of(departmentEmployeePage));
+        given(departmentEmployeeRepository.findAllByDepartment(any(), any())).willReturn(Optional.of(employeeBasicInfoPage));
         ResultActions resultActions = mvc.perform(
                 get(URI + department.getDeptNo() + "/employees"))
                 .andExpect(status().isOk());
 
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
-        String departmentJson = jacksonTesterEmployeeList.write(departmentEmployeeList).getJson();
+        String departmentJson = jacksonTesterDepartmentEmployeeBasicInfoList.write(employeeBasicInfoList).getJson();
 
         Assertions.assertEquals(departmentJson, contentAsString);
     }

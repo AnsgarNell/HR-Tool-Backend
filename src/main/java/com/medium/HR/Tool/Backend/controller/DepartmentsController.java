@@ -1,7 +1,8 @@
 package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.projections.DepartmentEmployeeBasicInfo;
+import com.medium.HR.Tool.Backend.model.projections.EmployeeBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +73,7 @@ public class DepartmentsController {
      * @return The list of employees.
      */
     @GetMapping("/{id}/employees")
-    public ResponseEntity<List<DepartmentEmployee>> getEmployeesByDepartment(
+    public ResponseEntity<List<EmployeeBasicInfo>> getEmployeesByDepartment(
             @PathVariable String id,
             @RequestParam(value = "start", required = false, defaultValue = "0") Integer startOrNull,
             @RequestParam(value = "limit", required = false, defaultValue = "20") @Valid @Max(100) Integer limitOrNull) {
@@ -83,17 +85,19 @@ public class DepartmentsController {
 
         Department department = optionalDepartment.get();
         Pageable pageable = PageRequest.of(startOrNull, limitOrNull);
-        Optional<Page<DepartmentEmployee>> optionalDepartmentEmployeePage = departmentEmployeeRepository.findAllByDepartment(department, pageable);
+        Optional<Page<DepartmentEmployeeBasicInfo>> optionalDepartmentEmployeePage = departmentEmployeeRepository.findAllByDepartment(department, pageable);
         if (!optionalDepartmentEmployeePage.isPresent()) {
             return ResponseEntity.ok().build();
         }
 
-        Page<DepartmentEmployee> departmentEmployeePage = optionalDepartmentEmployeePage.get();
+        Page<DepartmentEmployeeBasicInfo> departmentEmployeeBasicInfoPage = optionalDepartmentEmployeePage.get();
+        List<EmployeeBasicInfo> employeeBasicInfoList = new ArrayList<>();
+        departmentEmployeeBasicInfoPage.toList().forEach(departmentEmployeeBasic -> employeeBasicInfoList.add(departmentEmployeeBasic.getEmployee()));
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("X-Total-Count",
-                String.valueOf(departmentEmployeePage.getTotalElements()));
+                String.valueOf(departmentEmployeeBasicInfoPage.getTotalElements()));
         return ResponseEntity.ok()
                 .headers(responseHeaders)
-                .body(departmentEmployeePage.toList());
+                .body(employeeBasicInfoList);
     }
 }

@@ -1,6 +1,10 @@
 package com.medium.HR.Tool.Backend.auxiliary;
 
-import com.medium.HR.Tool.Backend.model.*;
+import com.medium.HR.Tool.Backend.model.Department;
+import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.Employee;
+import com.medium.HR.Tool.Backend.model.Title;
+import com.medium.HR.Tool.Backend.model.projections.DepartmentEmployeeBasicInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +19,8 @@ public class DepartmentEmployeeCreator {
 
     static ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
-    static public List<DepartmentEmployee> createDepartmentEmployees(Department department) {
-        List<DepartmentEmployee> departmentEmployeeList = new ArrayList<>();
+    static public List<DepartmentEmployeeBasicInfo> createDepartmentEmployees(Department department) {
+        List<DepartmentEmployeeBasicInfo> departmentEmployeeBasicInfoList = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             DepartmentEmployee departmentEmployee = new DepartmentEmployee();
             departmentEmployee.setDepartment(department);
@@ -25,22 +28,29 @@ public class DepartmentEmployeeCreator {
             employee.setEmpNo(i);
             employee.setFirstName(String.format("TestFirsName%02d", i));
             employee.setLastName(String.format("TestLastName %02d", i));
-            employee.setBirthDate(Date.valueOf(String.format("1980-%02d-01", i)));
-            employee.setGender((i%2 == 0 ? Gender.M : Gender.F));
-            employee.setHireDate(Date.valueOf(String.format("2000-%02d-01", i)));
+            createTitles(employee);
             departmentEmployee.setEmployee(employee);
-            departmentEmployee.setFromDate(Date.valueOf(String.format("2000-%02d-01", i)));
-            departmentEmployee.setToDate(Date.valueOf(String.format("9999-%02d-01", i)));
-            departmentEmployeeList.add(departmentEmployee);
+            DepartmentEmployeeBasicInfo departmentEmployeeBasicInfo = factory.createProjection(DepartmentEmployeeBasicInfo.class, departmentEmployee);
+            departmentEmployeeBasicInfoList.add(departmentEmployeeBasicInfo);
         }
-        return departmentEmployeeList;
+        return departmentEmployeeBasicInfoList;
     }
 
-    static public Page<DepartmentEmployee> createPagedDepartmentEmployees(Department department) {
-        List<DepartmentEmployee> departmentEmployeeList = createDepartmentEmployees(department);
-        Pageable pageable = PageRequest.of(0, departmentEmployeeList.size());
-        Page<DepartmentEmployee> departmentEmployeePage = new PageImpl<DepartmentEmployee>(departmentEmployeeList, pageable, departmentEmployeeList.size());
+    private static void createTitles(Employee employee) {
+        List<Title> titleList = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            Title title = new Title();
+            title.setTitle(String.format("TestTitle%02d", i));
+            titleList.add(title);
+        }
+        employee.setTitles(titleList);
+    }
 
-        return departmentEmployeePage;
+    static public Page<DepartmentEmployeeBasicInfo> createPagedDepartmentEmployees(Department department) {
+        List<DepartmentEmployeeBasicInfo> departmentEmployeeBasicInfoList;
+        departmentEmployeeBasicInfoList = createDepartmentEmployees(department);
+        Pageable pageable = PageRequest.of(0, departmentEmployeeBasicInfoList.size());
+        return new PageImpl<>(
+                departmentEmployeeBasicInfoList, pageable, departmentEmployeeBasicInfoList.size());
     }
 }
