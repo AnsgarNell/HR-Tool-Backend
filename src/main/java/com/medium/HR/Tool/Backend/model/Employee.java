@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +68,7 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     @OrderBy("fromDate DESC")
-    List<Title> titles;
+    List<Title> titles = new ArrayList<>();
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     @OrderBy("fromDate DESC")
@@ -112,6 +113,11 @@ public class Employee {
     }
 
     public List<DepartmentEmployee> getEmployeeOf() { return employeeOf; }
+
+    public String getCurrentTitle() {
+        if (titles.isEmpty()) return "";
+        else return titles.get(0).getTitle();
+    }
 
     public List<Title> getTitles() {
         return titles;
