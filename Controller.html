@@ -438,28 +438,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
+<h1>Controller</h1>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="_controller">Controller</h3>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>Each entity (except <a href="#department-manager">[department-manager]</a>) has it&#8217;s own controller, mapped to the corresponding path. Depending on the entity, it is also possible
 to pass parameters to access to a specific information (for example, the detailed view of an employee passing his
 employee number).</p>
 </div>
-<div class="sect3">
-<h4 id="departments-controller">Departments Controller</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Path: "/departments"</p>
-<div class="paragraph">
-<p>Returns the complete list of departments. Each department entry contains the same information as in the entity
-<a href="#department">[department]</a>.</p>
 </div>
-</li>
-<li>
-<p>Path: "/departments/{id}"</p>
+</div>
+<div class="sect1">
+<h2 id="departments-controller">Departments Controller</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_path_departments">Path: "/departments"</h3>
+<div class="paragraph">
+<p>Returns the complete list of departments, ordered by the department number. Each department entry contains the same
+information as in the entity <a href="#department">[department]</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_path_departmentsid">Path: "/departments/{id}"</h3>
 <div class="paragraph">
 <p>Returns the following information corresponding to the department number <em>id</em>:</p>
 </div>
@@ -504,8 +506,31 @@ employee number).</p>
 </ul>
 </div>
 </li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_path_departmentsidemployees">Path: "/departments/{id}/employees"</h3>
+<div class="paragraph">
+<p>This path accepts two parameters for paginating the result:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>A paginated list of employees, with the key <em>employees</em> Contains the information:</p>
+<p><em>start</em>: sets the first employee number based in the limit that the list will contain (default value 0).</p>
+</li>
+<li>
+<p><em>limit</em>: sets the number of results to be retrieved (default value 20, max value 100).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Returns the following information corresponding to the employees of the department number <em>id</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A list of employees, which contains the following information:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -542,23 +567,36 @@ employee number).</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>The header contains a <em>X-Total-Count</em> value with the total number of employees.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="employees-controller">Employees Controller</h4>
+</div>
+</div>
+<div class="sect1">
+<h2 id="employees-controller">Employees Controller</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_path_employees">Path: "/employees"</h3>
+<div class="paragraph">
+<p>This path accepts two parameters for paginating the result:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Path: "/employees"</p>
-<div class="paragraph">
-<p>Returns a list of employees, setting a default <em>start</em> and <em>limit</em> value, if not provided. Each employee entry contains the same information
-as in the entity <a href="#employee">[employee]</a>.</p>
-</div>
+<p><em>start</em>: sets the first employee number based in the limit that the list will contain (default value 0).</p>
 </li>
 <li>
-<p>Path: "/employees/{id}"</p>
+<p><em>limit</em>: sets the number of results to be retrieved (default value 50, max value 100).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Returns a list of employees, in which each entry contains the same information as in the entity <a href="#employee">[employee]</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_path_employeesid">Path: "/employees/{id}"</h3>
 <div class="paragraph">
 <p>Returns the following information corresponding to the employee number <em>id</em>:</p>
 </div>
@@ -651,9 +689,6 @@ as in the entity <a href="#employee">[employee]</a>.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -691,9 +726,10 @@ as in the entity <a href="#employee">[employee]</a>.</p>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-19 20:32:29 +0200
+Last updated 2020-04-23 09:02:14 +0200
 </div>
 </div>
 </body>
