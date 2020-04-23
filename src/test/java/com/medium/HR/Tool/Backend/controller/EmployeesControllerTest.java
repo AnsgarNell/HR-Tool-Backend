@@ -2,7 +2,6 @@ package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.auxiliary.EmployeeCreator;
 import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.projections.EmployeeBasicInfo;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
 import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
 import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
@@ -13,12 +12,10 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -47,27 +44,9 @@ public class EmployeesControllerTest {
     @Autowired
     private JacksonTester<Employee> jacksonTesterEmployee;
 
-    @Autowired
-    private JacksonTester<List<EmployeeBasicInfo>> jacksonTesterEmployeeList;
-
-    @Test
-    public void listEmployees() throws Exception {
-        Page<EmployeeBasicInfo> employeeBasicInfoPage = EmployeeCreator.createPagedEmployeeBasicInfos();
-        given(employeesRepository.findAllByOrderByEmpNoAsc(any())).willReturn(employeeBasicInfoPage);
-
-        ResultActions resultActions = mvc.perform(get(URI))
-                .andExpect(status().isOk());
-
-        MvcResult result = resultActions.andReturn();
-        String contentAsString = result.getResponse().getContentAsString();
-        String listAsJson = jacksonTesterEmployeeList.write(employeeBasicInfoPage.toList()).getJson();
-
-        Assertions.assertEquals(listAsJson, contentAsString);
-    }
-
     @Test
     void getNonExistingEmployee() throws Exception {
-        given(employeesRepository.findById(any())).willReturn(Optional.ofNullable(null));
+        given(employeesRepository.findById(any())).willReturn(Optional.empty());
 
         mvc.perform(get(URI + "00000"))
                 .andExpect(status().isNotFound());
