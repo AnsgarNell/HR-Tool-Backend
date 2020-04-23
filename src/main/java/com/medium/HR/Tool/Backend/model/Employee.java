@@ -66,11 +66,11 @@ public class Employee {
     List<DepartmentEmployee> employeeOf;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    @OrderBy("fromDate ASC")
+    @OrderBy("fromDate DESC")
     List<Title> titles;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    @OrderBy("fromDate ASC")
+    @OrderBy("fromDate DESC")
     List<Salary> salaries;
 
     public Employee() {
