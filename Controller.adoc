@@ -1,6 +1,6 @@
 === Controller
 
-Each entity (except <<department-manager>>) has it's own controller, mapped to the corresponding path. Depending on the entity, it is also possible
+Each entity (except <<Model.adoc#department-manager>>) has it's own controller, mapped to the corresponding path. Depending on the entity, it is also possible
 to pass parameters to access to a specific information (for example, the detailed view of an employee passing his
 employee number).
 
