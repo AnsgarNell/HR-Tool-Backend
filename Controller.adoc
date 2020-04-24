@@ -1,6 +1,6 @@
 = Controller
 
-Each entity (except <<department-manager>>) has it's own controller, mapped to the corresponding path. Depending on the entity, it is also possible
+Each entity (except <<Model.adoc#department-manager, Department Manager>>) has its own controller, mapped to the corresponding path. Depending on the entity, it is also possible
 to pass parameters to access to a specific information (for example, the detailed view of an employee passing his
 employee number).
 
@@ -9,18 +9,18 @@ employee number).
 
 === Path: "/departments"
 Returns the complete list of departments, ordered by the department number. Each department entry contains the same
-information as in the entity <<#department>>.
+information as in the entity <<Model.adoc#department, Department>>.
 
 === Path: "/departments/{id}"
 Returns the following information corresponding to the department number _id_:
 
-* The data contained in <<#department>>. In the root.
+* The data contained in <<Model.adoc#department, Department>>. In the root.
 * Information about the current and past managers. Key _managers_.
-** Based in <<#employee>>:
+** Based in <<Model.adoc#employee, Employee>>:
 *** Employee number
 *** First name
 *** Last name
-** Based in <<#department-manager>>:
+** Based in <<Model.adoc#department-manager, Department Manager>>:
 *** From date
 *** To date
 
@@ -33,11 +33,11 @@ This path accepts two parameters for paginating the result:
 Returns the following information corresponding to the employees of the department number _id_:
 
 * A list of employees, which contains the following information:
-** Based in <<#employee>>:
+** Based in <<Model.adoc#employee, Employee>>:
 *** Employee number
 *** First name
 *** Last name
-** Based in <<#department-employee>>:
+** Based in <<Model.adoc#department-employee, Department Employee>>:
 *** From date
 *** To date
 
@@ -52,24 +52,24 @@ This path accepts two parameters for paginating the result:
 * _start_: sets the first employee number based in the limit that the list will contain (default value 0).
 * _limit_: sets the number of results to be retrieved (default value 50, max value 100).
 
-Returns a list of employees, in which each entry contains the same information as in the entity <<#employee>>.
+Returns a list of employees, in which each entry contains the same information as in the entity <<Model.adoc#employee, Employee>>.
 
 === Path: "/employees/{id}"
 Returns the following information corresponding to the employee number _id_:
 
-* The data contained in <<#employee>>, and more specifically in the following cases:
+* The data contained in <<Model.adoc#employee, Employee>>, and more specifically in the following cases:
 * If the employee is or has been a manager, information about the department and dates. Key _managerOf_.
-** Based in <<#department>>:
+** Based in <<Model.adoc#department, Department>>:
 *** Department number
 *** Department name
-** Based in <<#department-manager>>:
+** Based in <<Model.adoc#department-manager, Department Manager>>:
 *** From date
 *** To date
 * Information about the department and dates where the employee has worked. Key _employeeOf_.
-** Based in <<#department>>:
+** Based in <<Model.adoc#department, Department>>:
 *** Department number
 *** Department name
-** Based in <<#department-manager>>:
+** Based in <<Model.adoc#department-manager, Department Manager>>:
 *** From date
 *** To date
 * Information about the titles that the employee has currently or had in the past. Key _titles_.

@@ -1,6 +1,6 @@
 === Model
 
-The original database schema can be seen in <<#database-schema>>.
+The original database schema can be seen in <<README.adoc#database-schema, Database Schema>>.
 
 NOTE: For the development, the entities names are in *singular* form, in order to avoid confusion when using a single
 instance or several. So, the Employees tables is mapped to the Employee class, and so on. The plural form has been
