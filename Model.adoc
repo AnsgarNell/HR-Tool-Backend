@@ -1,4 +1,4 @@
-=== Model
+= Model
 
 The original database schema can be seen in <<README.adoc#database-schema, Database Schema>>.
 
@@ -10,7 +10,7 @@ implementation.
 Let's analyze each of the tables and it contents.
 
 [#department]
-==== Department
+== Department
 
 The *Department* entity maps the *departments* table.
 
@@ -31,7 +31,7 @@ entity Department {
 endif::env-github[]
 
 [#employee]
-==== Employee
+== Employee
 
 The *Employee* entity maps the *employees* table.
 
@@ -59,7 +59,7 @@ entity Employee {
 endif::env-github[]
 
 [#department-manager]
-==== Department Manager
+== Department Manager
 
 The *DepartmentManager* class implements the join table *dept_manager* between the entity <<department>> and its
 current and past managers (entity <<employee>>).
@@ -82,7 +82,7 @@ entity DepartmentManager {
 endif::env-github[]
 
 [#department-employee]
-==== Department Employee
+== Department Employee
 
 The *DepartmentEmployee* class implements the join table *dept_emp* between the entity <<department>> and its
 current and past employees (entity <<employee>>).
@@ -105,7 +105,7 @@ entity DepartmentEmployee {
 endif::env-github[]
 
 [#title]
-==== Title
+== Title
 
 The *Title* class implements the *titles* table, a many to one relationship to the table <<employee>> which contains its
 current and past titles.
@@ -128,7 +128,7 @@ entity Title {
 endif::env-github[]
 
 [#salary]
-==== Salary
+== Salary
 
 The *Salary* class implements the *salaries* table, a many to one relationship to the table <<employee>> which contains
 its current and past salaries.

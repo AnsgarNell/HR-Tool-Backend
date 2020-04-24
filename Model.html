@@ -438,10 +438,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
+<h1>Model</h1>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="_model">Model</h3>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>The original database schema can be seen in <a href="README.html#database-schema">Database Schema</a>.</p>
 </div>
@@ -463,8 +464,11 @@ implementation.
 <div class="paragraph">
 <p>Let&#8217;s analyze each of the tables and it contents.</p>
 </div>
-<div class="sect3">
-<h4 id="department">Department</h4>
+</div>
+</div>
+<div class="sect1">
+<h2 id="department">Department</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The <strong>Department</strong> entity maps the <strong>departments</strong> table.</p>
 </div>
@@ -474,8 +478,10 @@ implementation.
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="employee">Employee</h4>
+</div>
+<div class="sect1">
+<h2 id="employee">Employee</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The <strong>Employee</strong> entity maps the <strong>employees</strong> table.</p>
 </div>
@@ -485,8 +491,10 @@ implementation.
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="department-manager">Department Manager</h4>
+</div>
+<div class="sect1">
+<h2 id="department-manager">Department Manager</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The <strong>DepartmentManager</strong> class implements the join table <strong>dept_manager</strong> between the entity <a href="#department">Department</a> and its
 current and past managers (entity <a href="#employee">Employee</a>).</p>
@@ -497,8 +505,10 @@ current and past managers (entity <a href="#employee">Employee</a>).</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="department-employee">Department Employee</h4>
+</div>
+<div class="sect1">
+<h2 id="department-employee">Department Employee</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The <strong>DepartmentEmployee</strong> class implements the join table <strong>dept_emp</strong> between the entity <a href="#department">Department</a> and its
 current and past employees (entity <a href="#employee">Employee</a>).</p>
@@ -509,8 +519,10 @@ current and past employees (entity <a href="#employee">Employee</a>).</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="title">Title</h4>
+</div>
+<div class="sect1">
+<h2 id="title">Title</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The <strong>Title</strong> class implements the <strong>titles</strong> table, a many to one relationship to the table <a href="#employee">Employee</a> which contains its
 current and past titles.</p>
@@ -521,8 +533,10 @@ current and past titles.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="salary">Salary</h4>
+</div>
+<div class="sect1">
+<h2 id="salary">Salary</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The <strong>Salary</strong> class implements the <strong>salaries</strong> table, a many to one relationship to the table <a href="#employee">Employee</a> which contains
 its current and past salaries.</p>
@@ -537,7 +551,7 @@ its current and past salaries.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-24 16:25:22 +0200
+Last updated 2020-04-24 16:28:33 +0200
 </div>
 </div>
 </body>
