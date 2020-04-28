@@ -477,6 +477,20 @@ implementation.
 <img src="images/department-schema.png" alt="department schema" width="266" height="103">
 </div>
 </div>
+<div class="sect2">
+<h3 id="_projections">Projections</h3>
+<div class="sect3">
+<h4 id="department-basic-info">DepartmentBasicInfo</h4>
+<div class="paragraph">
+<p>This projection returns only the basic information for a <a href="#department">Department</a> entity.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/department-basic-info-projection.png" alt="department basic info projection" width="180" height="90">
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -490,32 +504,18 @@ implementation.
 <img src="images/employee-schema.png" alt="employee schema" width="283" height="193">
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="department-manager">Department Manager</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_projections_2">Projections</h3>
+<div class="sect3">
+<h4 id="employee-basic-info">EmployeeBasicInfo</h4>
 <div class="paragraph">
-<p>The <strong>DepartmentManager</strong> class implements the join table <strong>dept_manager</strong> between the entity <a href="#department">Department</a> and its
-current and past managers (entity <a href="#employee">Employee</a>).</p>
+<p>This projection returns only the basic information for an <a href="#employee">Employee</a> entity.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/department-manager-schema.png" alt="department manager schema" width="188" height="116">
+<img src="images/employee-basic-info-projection.png" alt="employee basic info projection" width="165" height="116">
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="department-employee">Department Employee</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The <strong>DepartmentEmployee</strong> class implements the join table <strong>dept_emp</strong> between the entity <a href="#department">Department</a> and its
-current and past employees (entity <a href="#employee">Employee</a>).</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/department-employee-schema.png" alt="department employee schema" width="188" height="116">
 </div>
 </div>
 </div>
@@ -548,10 +548,53 @@ its current and past salaries.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="department-manager">Department Manager</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>DepartmentManager</strong> class implements the join table <strong>dept_manager</strong> between the entity <a href="#department">Department</a> and its
+current and past managers (entity <a href="#employee">Employee</a>).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/department-manager-schema.png" alt="department manager schema" width="188" height="116">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="department-employee">Department Employee</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>DepartmentEmployee</strong> class implements the join table <strong>dept_emp</strong> between the entity <a href="#department">Department</a> and its
+current and past employees (entity <a href="#employee">Employee</a>).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/department-employee-schema.png" alt="department employee schema" width="188" height="116">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_projections_3">Projections</h3>
+<div class="sect3">
+<h4 id="department-employee-basic-info">DepartmentEmployeeBasicInfo</h4>
+<div class="paragraph">
+<p>This projection returns only the basic information for an <a href="#department-employee">Department Employee</a> entity, in the form of an
+<a href="#employee-basic-info">EmployeeBasicInfo</a> projection.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/department-employee-basic-info-projection.png" alt="department employee basic info projection" width="240" height="77">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-24 16:28:33 +0200
+Last updated 2020-04-28 14:24:19 +0200
 </div>
 </div>
 </body>

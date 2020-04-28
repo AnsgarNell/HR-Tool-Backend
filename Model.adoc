@@ -30,6 +30,28 @@ entity Department {
 ....
 endif::env-github[]
 
+=== Projections
+
+[#department-basic-info]
+==== DepartmentBasicInfo
+
+This projection returns only the basic information for a <<#department>> entity.
+
+ifdef::env-github[]
+.Department Basic Info Projection
+image::/images/department-basic-info-projection.png[Department Basic Info Projection]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-basic-info-projection,png]
+....
+interface DepartmentBasicInfo {
+    String getDeptNo();
+    String getDeptName();
+}
+....
+endif::env-github[]
+
+
 [#employee]
 == Employee
 
@@ -58,51 +80,29 @@ entity Employee {
 ....
 endif::env-github[]
 
-[#department-manager]
-== Department Manager
+=== Projections
 
-The *DepartmentManager* class implements the join table *dept_manager* between the entity <<department>> and its
-current and past managers (entity <<employee>>).
+[#employee-basic-info]
+==== EmployeeBasicInfo
+
+This projection returns only the basic information for an <<#employee>> entity.
 
 ifdef::env-github[]
-.Department Manager Schema
-image::/images/department-manager-schema.png[Department Manager Schema]
+.Employee Basic Info Projection
+image::/images/employee-basic-info-projection.png[Employee Basic Info Projection]
 endif::env-github[]
 ifndef::env-github[]
-[plantuml,images/department-manager-schema,png]
+[plantuml,images/employee-basic-info-projection,png]
 ....
-entity DepartmentManager {
-    * department : Department
-    * employee : Employee
-    --
-    * fromDate : Date
-    * toDate : Date
+interface EmployeeBasicInfo {
+    Integer getEmpNo();
+    String getFirstName();
+    String getLastName();
+    String getCurrentTitle();
 }
 ....
 endif::env-github[]
 
-[#department-employee]
-== Department Employee
-
-The *DepartmentEmployee* class implements the join table *dept_emp* between the entity <<department>> and its
-current and past employees (entity <<employee>>).
-
-ifdef::env-github[]
-.Department Employee Schema
-image::/images/department-employee-schema.png[Department Employee Schema]
-endif::env-github[]
-ifndef::env-github[]
-[plantuml,images/department-employee-schema,png]
-....
-entity DepartmentEmployee {
-    * department : Department
-    * employee : Employee
-    --
-    * fromDate : Date
-    * toDate : Date
-}
-....
-endif::env-github[]
 
 [#title]
 == Title
@@ -127,6 +127,7 @@ entity Title {
 ....
 endif::env-github[]
 
+
 [#salary]
 == Salary
 
@@ -146,6 +147,75 @@ entity Salary {
     --
     * fromDate : Date
     * toDate : Date
+}
+....
+endif::env-github[]
+
+
+[#department-manager]
+== Department Manager
+
+The *DepartmentManager* class implements the join table *dept_manager* between the entity <<department>> and its
+current and past managers (entity <<employee>>).
+
+ifdef::env-github[]
+.Department Manager Schema
+image::/images/department-manager-schema.png[Department Manager Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-manager-schema,png]
+....
+entity DepartmentManager {
+    * department : Department
+    * employee : Employee
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
+
+
+[#department-employee]
+== Department Employee
+
+The *DepartmentEmployee* class implements the join table *dept_emp* between the entity <<department>> and its
+current and past employees (entity <<employee>>).
+
+ifdef::env-github[]
+.Department Employee Schema
+image::/images/department-employee-schema.png[Department Employee Schema]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-employee-schema,png]
+....
+entity DepartmentEmployee {
+    * department : Department
+    * employee : Employee
+    --
+    * fromDate : Date
+    * toDate : Date
+}
+....
+endif::env-github[]
+
+=== Projections
+
+[#department-employee-basic-info]
+==== DepartmentEmployeeBasicInfo
+
+This projection returns only the basic information for an <<#department-employee>> entity, in the form of an
+<<#employee-basic-info>> projection.
+
+ifdef::env-github[]
+.Department Employee Basic Info Projection
+image::/images/department-employee-basic-info-projection.png[Department Employee Basic Info Projection]
+endif::env-github[]
+ifndef::env-github[]
+[plantuml,images/department-employee-basic-info-projection,png]
+....
+interface DepartmentEmployeeBasicInfo {
+    EmployeeBasicInfo getEmployee();
 }
 ....
 endif::env-github[]
