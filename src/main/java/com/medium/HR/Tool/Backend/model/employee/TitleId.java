@@ -1,4 +1,4 @@
-package com.medium.HR.Tool.Backend.model;
+package com.medium.HR.Tool.Backend.model.employee;
 
 import java.io.Serializable;
 import java.sql.Date;

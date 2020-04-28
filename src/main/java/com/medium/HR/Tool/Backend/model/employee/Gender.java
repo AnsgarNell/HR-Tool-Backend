@@ -1,4 +1,4 @@
-package com.medium.HR.Tool.Backend.model;
+package com.medium.HR.Tool.Backend.model.employee;
 
 /**
  * Gender enumeration

@@ -1,7 +1,7 @@
 package com.medium.HR.Tool.Backend.auxiliary;
 
-import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.Gender;
+import com.medium.HR.Tool.Backend.model.employee.Employee;
+import com.medium.HR.Tool.Backend.model.employee.Gender;
 
 import java.sql.Date;
 

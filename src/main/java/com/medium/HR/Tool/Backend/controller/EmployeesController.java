@@ -1,7 +1,7 @@
 package com.medium.HR.Tool.Backend.controller;
 
-import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
+import com.medium.HR.Tool.Backend.model.employee.Employee;
+import com.medium.HR.Tool.Backend.model.employee.repositories.EmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

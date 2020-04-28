@@ -1,10 +1,12 @@
-package com.medium.HR.Tool.Backend.model;
+package com.medium.HR.Tool.Backend.model.employee;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.medium.HR.Tool.Backend.model.serializers.EmployeeOfDepartmentsSerializer;
-import com.medium.HR.Tool.Backend.model.serializers.ManagerOfDepartmentsSerializer;
+import com.medium.HR.Tool.Backend.model.departmentemployee.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.departmentmanager.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.employee.serializers.EmployeeOfDepartmentsSerializer;
+import com.medium.HR.Tool.Backend.model.employee.serializers.ManagerOfDepartmentsSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

@@ -1,10 +1,10 @@
 package com.medium.HR.Tool.Backend.controller;
 
 import com.medium.HR.Tool.Backend.auxiliary.EmployeeCreator;
-import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
-import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
-import com.medium.HR.Tool.Backend.model.repositories.EmployeesRepository;
+import com.medium.HR.Tool.Backend.model.employee.Employee;
+import com.medium.HR.Tool.Backend.model.departmentemployee.repositories.DepartmentEmployeeRepository;
+import com.medium.HR.Tool.Backend.model.department.repositories.DepartmentsRepository;
+import com.medium.HR.Tool.Backend.model.employee.repositories.EmployeesRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

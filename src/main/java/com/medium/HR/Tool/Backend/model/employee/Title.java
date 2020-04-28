@@ -1,17 +1,19 @@
-package com.medium.HR.Tool.Backend.model;
+package com.medium.HR.Tool.Backend.model.employee;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-@IdClass(SalaryId.class)
-@Table(name = "salaries")
-public class Salary implements Serializable {
+@IdClass(TitleId.class)
+@Table(name = "titles")
+public class Title implements Serializable {
 
     @Id
     @ManyToOne
@@ -19,9 +21,13 @@ public class Salary implements Serializable {
     @JsonIgnore
     private Employee employee;
 
-    @NotNull(message = "Salary may not be null")
-    @Column(name = "salary")
-    private Integer salary;
+    @Id
+    @Size(max = 50, message
+            = "The title can not contain more than 50 characters")
+    @NotNull(message = "The title may not be null")
+    @NotEmpty(message = "The title may not be empty")
+    @Column(name = "title")
+    private String title;
 
     @Id
     @NotNull(message = "From date may not be null")
@@ -38,9 +44,7 @@ public class Salary implements Serializable {
         return employee;
     }
 
-    public Integer getSalary() {
-        return salary;
-    }
+    public String getTitle() { return title; }
 
     public Date getFromDate() {
         return fromDate;
@@ -54,15 +58,13 @@ public class Salary implements Serializable {
         this.employee = employee;
     }
 
+    public void setTitle(String title) { this.title = title; }
+
     public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
-    }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
     }
 }

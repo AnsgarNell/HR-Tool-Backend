@@ -1,22 +1,22 @@
-package com.medium.HR.Tool.Backend.model.serializers;
+package com.medium.HR.Tool.Backend.model.employee.serializers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.department.Department;
+import com.medium.HR.Tool.Backend.model.departmentemployee.DepartmentEmployee;
 
 import java.io.IOException;
 import java.util.List;
 
 /** Class to serialize in JSON format the departments
- *  which an employee has managed.
+ *  in which an employee has worked.
  */
-public class ManagerOfDepartmentsSerializer extends JsonSerializer<List<DepartmentManager>> {
+public class EmployeeOfDepartmentsSerializer extends JsonSerializer<List<DepartmentEmployee>> {
     @Override
-    public void serialize(List<DepartmentManager> managedDepartmentsList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(List<DepartmentEmployee> departmentEmployeeList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartArray();
-        for (DepartmentManager k : managedDepartmentsList) {
+        for (DepartmentEmployee k : departmentEmployeeList) {
             // TODO: Try to somehow call the EmployeeOfDepartmentSerializer from here to
             // avoid having duplicated code in both serializers
             Department department = k.getDepartment();
@@ -31,7 +31,7 @@ public class ManagerOfDepartmentsSerializer extends JsonSerializer<List<Departme
     }
 
     @Override
-    public boolean isEmpty(SerializerProvider provider, List<DepartmentManager> value) {
+    public boolean isEmpty(SerializerProvider provider, List<DepartmentEmployee> value) {
         return (value == null || value.size() == 0);
     }
 }
