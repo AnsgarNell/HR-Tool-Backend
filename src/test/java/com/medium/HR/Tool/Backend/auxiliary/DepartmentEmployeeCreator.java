@@ -1,10 +1,10 @@
 package com.medium.HR.Tool.Backend.auxiliary;
 
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
-import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.Title;
-import com.medium.HR.Tool.Backend.model.projections.DepartmentEmployeeBasicInfo;
+import com.medium.HR.Tool.Backend.model.department.Department;
+import com.medium.HR.Tool.Backend.model.departmentemployee.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.employee.Employee;
+import com.medium.HR.Tool.Backend.model.employee.Title;
+import com.medium.HR.Tool.Backend.model.departmentemployee.projections.DepartmentEmployeeBasicInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

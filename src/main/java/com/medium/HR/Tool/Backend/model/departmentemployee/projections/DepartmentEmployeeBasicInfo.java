@@ -1,6 +1,7 @@
-package com.medium.HR.Tool.Backend.model.projections;
+package com.medium.HR.Tool.Backend.model.departmentemployee.projections;
 
-import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.departmentemployee.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.employee.projections.EmployeeBasicInfo;
 import org.springframework.data.rest.core.config.Projection;
 
 @Projection(

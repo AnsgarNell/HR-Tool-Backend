@@ -1,9 +1,9 @@
-package com.medium.HR.Tool.Backend.model.repositories;
+package com.medium.HR.Tool.Backend.model.departmentemployee.repositories;
 
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentEmployee;
-import com.medium.HR.Tool.Backend.model.DepartmentEmployeeId;
-import com.medium.HR.Tool.Backend.model.projections.DepartmentEmployeeBasicInfo;
+import com.medium.HR.Tool.Backend.model.department.Department;
+import com.medium.HR.Tool.Backend.model.departmentemployee.DepartmentEmployee;
+import com.medium.HR.Tool.Backend.model.departmentemployee.DepartmentEmployeeId;
+import com.medium.HR.Tool.Backend.model.departmentemployee.projections.DepartmentEmployeeBasicInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
