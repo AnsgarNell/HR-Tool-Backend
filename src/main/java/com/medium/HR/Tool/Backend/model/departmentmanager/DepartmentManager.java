@@ -1,4 +1,7 @@
-package com.medium.HR.Tool.Backend.model;
+package com.medium.HR.Tool.Backend.model.departmentmanager;
+
+import com.medium.HR.Tool.Backend.model.department.Department;
+import com.medium.HR.Tool.Backend.model.employee.Employee;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
