@@ -1,9 +1,9 @@
 package com.medium.HR.Tool.Backend.auxiliary;
 
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.DepartmentManager;
-import com.medium.HR.Tool.Backend.model.Employee;
-import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
+import com.medium.HR.Tool.Backend.model.department.Department;
+import com.medium.HR.Tool.Backend.model.departmentmanager.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.employee.Employee;
+import com.medium.HR.Tool.Backend.model.department.projections.DepartmentBasicInfo;
 
 import java.sql.Date;
 import java.util.ArrayList;

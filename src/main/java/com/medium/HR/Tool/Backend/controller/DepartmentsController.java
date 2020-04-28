@@ -1,10 +1,10 @@
 package com.medium.HR.Tool.Backend.controller;
 
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.projections.DepartmentEmployeeBasicInfo;
-import com.medium.HR.Tool.Backend.model.projections.EmployeeBasicInfo;
-import com.medium.HR.Tool.Backend.model.repositories.DepartmentEmployeeRepository;
-import com.medium.HR.Tool.Backend.model.repositories.DepartmentsRepository;
+import com.medium.HR.Tool.Backend.model.department.Department;
+import com.medium.HR.Tool.Backend.model.departmentemployee.projections.DepartmentEmployeeBasicInfo;
+import com.medium.HR.Tool.Backend.model.employee.projections.EmployeeBasicInfo;
+import com.medium.HR.Tool.Backend.model.departmentemployee.repositories.DepartmentEmployeeRepository;
+import com.medium.HR.Tool.Backend.model.department.repositories.DepartmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

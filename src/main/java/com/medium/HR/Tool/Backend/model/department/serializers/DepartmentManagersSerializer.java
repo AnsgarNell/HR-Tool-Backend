@@ -1,10 +1,10 @@
-package com.medium.HR.Tool.Backend.model.serializers;
+package com.medium.HR.Tool.Backend.model.department.serializers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.medium.HR.Tool.Backend.model.DepartmentManager;
-import com.medium.HR.Tool.Backend.model.Employee;
+import com.medium.HR.Tool.Backend.model.departmentmanager.DepartmentManager;
+import com.medium.HR.Tool.Backend.model.employee.Employee;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.medium.HR.Tool.Backend.model.repositories;
+package com.medium.HR.Tool.Backend.model.department.repositories;
 
-import com.medium.HR.Tool.Backend.model.Department;
-import com.medium.HR.Tool.Backend.model.projections.DepartmentBasicInfo;
+import com.medium.HR.Tool.Backend.model.department.Department;
+import com.medium.HR.Tool.Backend.model.department.projections.DepartmentBasicInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
