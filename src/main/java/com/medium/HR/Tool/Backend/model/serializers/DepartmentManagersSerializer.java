@@ -20,7 +20,7 @@ public class DepartmentManagersSerializer extends JsonSerializer<List<Department
         for (DepartmentManager departmentManager : departmentManagersList) {
             // TODO: Try to somehow call the DepartmentEmployeeSerializer from here to
             // avoid having duplicated code in both serializers
-            Employee employee = departmentManager.getEmployee();
+            Employee employee = departmentManager.getManager();
             jsonGenerator.writeStartObject();
             jsonGenerator.writeStringField("empNo", employee.getEmpNo().toString());
             jsonGenerator.writeStringField("firstName", employee.getFirstName());

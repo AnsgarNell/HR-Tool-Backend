@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-@IdClass(DepartmentEmployeeId.class)
+@IdClass(DepartmentManagerId.class)
 @Table(name = "dept_manager")
 public class DepartmentManager implements Serializable {
 
@@ -18,7 +18,7 @@ public class DepartmentManager implements Serializable {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_no")
-    private Employee employee;
+    private Employee manager;
 
     @NotNull(message = "From date may not be null")
     @Column(name = "from_date")
@@ -32,8 +32,8 @@ public class DepartmentManager implements Serializable {
         return department;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getManager() {
+        return manager;
     }
 
     public Date getFromDate() {
@@ -48,8 +48,8 @@ public class DepartmentManager implements Serializable {
         this.department = department;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
     public void setFromDate(Date fromDate) {

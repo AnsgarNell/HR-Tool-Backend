@@ -43,7 +43,7 @@ public class DepartmentCreator {
         Employee manager = EmployeeCreator.createEmployee();
 
         departmentManager.setDepartment(department);
-        departmentManager.setEmployee(manager);
+        departmentManager.setManager(manager);
         departmentManager.setFromDate(Date.valueOf("2000-01-01"));
         departmentManager.setToDate(Date.valueOf("9999-01-01"));
 
